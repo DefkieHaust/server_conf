@@ -1,2 +1,0 @@
-username: user0_a256
-password: superUser256atdelta
