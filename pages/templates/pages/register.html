@@ -1,0 +1,52 @@
+{% extends "pages/forum.html" %}
+{% load crispy_forms_tags %}
+
+{% block desc %}
+MilkyWay | Sign Up
+{% endblock desc %}
+
+{% block title %}
+MilkyWay | Sign Up
+{% endblock title %}
+
+{% block main %}
+<main class="mb-auto col-12">
+  <h1>Register a new account</h1>
+  <p>It's quick and easy</h3>
+              
+<form id="form" method="POST" class="row">
+  <div class="col-12">
+    {% csrf_token %}
+    {{ form|crispy }}
+<!--   <div class="mb-3"> -->
+<!--     <label for="exampleinputusername1" class="form-label">Username</label> -->
+<!--     <input type="text" class="form-control form-control-lg bg-gray-800 border-dark" id="exampleinputusername1" maxlength="20" minlength="3"> -->
+<!--   </div> -->
+<!--   <div class="mb-3"> -->
+<!--     <label for="exampleinputusername2" class="form-label">Instagram Username</label> -->
+<!--     <input type="text" class="form-control form-control-lg bg-gray-800 border-dark" id="exampleinputusername2" maxlength="20" minlength="3"> -->
+<!--   </div> -->
+<!--   <div> -->
+<!--     <label for="exampleInputEmail1" class="form-label">Email Address</label> -->
+<!--     <input type="email" class="form-control form-control-lg bg-gray-800 border-dark" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="50"> -->
+<!--     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+<!-- </div> -->
+<!--   <div class="mb-3"> -->
+<!--     <label for="password1" class="form-label">Password</label> -->
+<!--     <input type="password" class="form-control form-control-lg bg-gray-800 border-dark" id="password1" maxlength="50" minlength="10"> -->
+<!--   </div> -->
+<!--   <div> -->
+<!--     <label for="password2" class="form-label">Confirm Password</label> -->
+<!--     <input type="password" class="form-control form-control-lg bg-gray-800 border-dark" id="password2" maxlength="50" minlength="10"> -->
+<!--   </div> -->
+  <br>
+  <!-- <div class="mb-3 form-check py-3"> -->
+  <!--   <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+  <!--   <label class="form-check-label" for="exampleCheck1">If you really don´t want any newsletter <strong>check this box</strong>. Then you just agree to receive our marketing mails and product stuff. If you check this box <strong>we will not send out our newsletter</strong> to you at all...on mondays.</label> -->
+  <!-- </div> -->
+  <button id="submit-btn" type="submit" class="btn btn-light btn-xl mb-4">Sign-Up</button>
+  <p class="form-text">Already have an account? <a class="redirect" href="/login">Login</a></p>
+</div>
+</form>
+</main>
+{% endblock main %}

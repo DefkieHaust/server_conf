@@ -1,0 +1,64 @@
+{% extends "pages/base.html" %}
+
+
+{% block title %}
+The Milky Way | Market
+{% endblock title %}
+
+{% block desc %}
+Market page
+{% endblock desc %}
+
+{% block main %}
+  <main>
+    <div class="container">
+      <div class="row d-flex justify-content-center py-vh-3 pb-0">
+        <div class="row gx-5">
+
+{% for product in products %}
+
+          <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-transparent mb-5" data-aos="zoom-in-up">
+              <div class="bg-dark shadow rounded-5 p-0">
+                <img src="
+                     {{ media_url }}
+                     {{ product.image }}
+                " height="170"
+                style="object-fit: cover;"
+                alt="abstract image"
+                  class="w-100 rounded-5 no-bottom-radius" loading="lazy">
+                <div class="d-flex flex-column justify-content-center p-3">
+                  <h6>
+                    <b>
+                      {{ product.name }}
+                    </b>
+                  </h6>
+                  <p class="text-secondary p2row">
+                   ${{ product.variations.all()[0].price }}
+                  </p>
+                  <div class="d-flex">
+                    <a href="register.html"
+                      aria-label="View"
+                      class="w-100 btn btn-outline-light"
+                      style="margin: 0px 5px;">
+                      <small>View</small>
+                    </a>
+                    <a href="register.html"
+                      aria-label="Purchace"
+                      class="w-100 btn btn-light"
+                      style="margin: 0px 5px;">
+                      <small>Purchace</small>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+{% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock main %}

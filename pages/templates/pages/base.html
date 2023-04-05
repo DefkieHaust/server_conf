@@ -1,0 +1,201 @@
+{% load static %}
+
+<!doctype html>
+<html class="h-100" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="description" content="
+              {% block desc %}
+              {% endblock desc %}
+  ">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+  <meta name="author" content="defkie">
+  <meta name="HandheldFriendly" content="true">
+  <title>
+    {% block title %}
+    {% endblock title %}
+  </title>
+  <link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
+
+  <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
+    <div class="container">
+      <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="/">
+        <img src="{% static 'img/logo.png' %}" alt="navlogo" height="80">
+      </a>
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="/" aria-label="Homepage">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="/market" aria-label="market page">
+            Market
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="/profile" aria-label="content page">
+            Profile
+          </a>
+        </li>
+
+      </ul>
+      
+      {% if user.is_authenticated %}
+      
+        {% if user.is_verified %}
+        
+        {% else %}
+          <div>
+             <a href="#" aria-label="Login"
+              class="btn btn-outline-light"
+              style="margin: 0px 5px;">
+              <small>Waiting for authentication</small>
+            </a>
+          </div>
+        {% endif %}
+
+      {% else %}
+        <div>
+           <a href="/login" aria-label="Login"
+            class="btn btn-outline-light"
+            style="margin: 0px 5px;">
+            <small>Login</small>
+          </a>
+          <a href="/register" aria-label="Sign-up"
+            class="btn btn-light"
+            style="margin: 0px 5px;">
+            <small>Sign up</small>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="py-vh-5"> </div>
+  <!-- End Nav -->
+
+  {% block main %}
+  {% endblock main %}
+
+  <!-- Start Footer -->
+  <footer class="bg-black border-top border-dark">
+    <div class="container text-secondary fw-lighter">
+      <div class="row">
+        <div class="col-12 col-lg-5 py-4 text-center text-lg-start">
+          <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href=".">
+
+            <span class="ms-md-1 mt-1 fw-bolder me-md-5">The Milky Way</span>
+          </a>
+
+        </div>
+        <div class="col border-end border-dark">
+          <span class="h6">Company</span>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">About us</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Legal</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Career</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col border-end border-dark">
+          <span class="h6">Services</span>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Products</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Customers</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Success Stories</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">More</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          <span class="h6">Support</span>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">About us</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Legal</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Career</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="link-fancy link-fancy-light">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container text-center small py-vh-2 border-top border-dark">
+      &copy; 2023 Binary Bandits. All rights reserved.
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script>
+    AOS.init({
+      duration: 800, // values from 0 to 3000, with step 50ms
+    });
+  </script>
+  <script>
+    let scrollpos = window.scrollY;
+    const header = document.querySelector(".navbar");
+    const header_height = header.offsetHeight;
+
+    const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm");
+    const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm");
+
+    window.addEventListener('scroll', function () {
+      scrollpos = window.scrollY;
+
+      if (scrollpos >= header_height) { add_class_on_scroll(); }
+      else { remove_class_on_scroll(); }
+
+      console.log(scrollpos);
+    })
+  </script>
+
+</body>
+
+</html>

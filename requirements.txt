@@ -1,0 +1,12 @@
+asgiref==3.6.0
+crispy-bootstrap5==0.7
+Django==4.2
+django-crispy-forms==2.0
+django-data-browser==4.0.13
+hyperlink==21.0.0
+idna==3.4
+Pillow==9.5.0
+python-dateutil==2.8.2
+six==1.16.0
+sqlparse==0.4.3
+tzdata==2023.3
