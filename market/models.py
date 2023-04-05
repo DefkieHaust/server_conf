@@ -9,6 +9,7 @@ from django.dispatch import receiver
 class Product(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(blank=True, max_length=1000)
+    price = models.FloatField()
     image = models.ImageField(blank=True)
     listed = models.BooleanField()
 
@@ -26,7 +27,6 @@ def delete_old_image(sender, instance, *args, **kwargs):
 
 class Variation(models.Model):
     name = models.CharField(max_length=50)
-    price = models.FloatField()
     stock = models.IntegerField()
     product = models.ForeignKey(
             Product,
@@ -38,18 +38,43 @@ class Variation(models.Model):
         return f"{self.product}: {self.name}"
 
 
-class Order(models.Model):
+class Cart(models.Model):
     user = models.ForeignKey(
             settings.AUTH_USER_MODEL,
             on_delete=models.CASCADE,
             )
-    item = models.ForeignKey(Product, on_delete=models.CASCADE)
-    variation = models.ForeignKey(
-            Variation,
-            on_delete=models.CASCADE
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(
+                Cart,
+                on_delete=models.CASCADE,
+                related_name='items',
+            )
+    item = models.ForeignKey(
+                Variation,
+                on_delete=models.CASCADE,
+            )
+    amount = models.IntegerField()
+
+
+class Order(models.Model):
+    user = models.ForeignKey(
+            settings.AUTH_USER_MODEL,
+            on_delete=models.CASCADE,
+            related_name="orders",
+            )
+    cart = models.ForeignKey(
+                Cart,
+                on_delete=models.CASCADE,
             )
     address = models.CharField(max_length=100)
     order_date = models.DateTimeField(auto_now_add=True)
+    completed = models.BooleanField()
 
     def __str__(self):
-        return f"{self.user}: {self.item}/{self.variation}"
+        if self.completed:
+            status = "Completed"
+        else:
+            status = "Pending"
+        return f"Order by {self.user}: {status}"
