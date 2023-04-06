@@ -16,3 +16,19 @@ def market(resp):
         return render(resp, "pages/market.html", relay)
     else:
         return redirect("/")
+
+
+@login_required(login_url='/login/')
+def product(resp, id):
+    if resp.user.is_verified:
+        if (item := Product.objects.filter(pk=id)[0]):
+            relay = {
+                "media_url": settings.MEDIA_URL,
+                "product": item,
+                "variations": item.variations.all(),
+            }
+            return render(resp, "pages/product.html", relay)
+        else:
+            return redirect("/market/")
+    else:
+        return redirect("/")

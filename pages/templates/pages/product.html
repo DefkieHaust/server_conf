@@ -20,11 +20,11 @@ Homepage
         <div class="col-12">
           <div class="card bg-transparent mb-5" data-aos="zoom-in-up">
             <div class="bg-dark shadow rounded-5 p-0">
-              <img src="img/webp/abstract9.webp"
+              <img src="{{ media_url }}{{ product.image }}"
               alt="abstract image"
                 class="w-100 rounded-5 no-bottom-radius" loading="lazy">
               <div class="d-flex flex-column p-3">
-                <h1><b>Abstract Alchemy</b></h1>
+                <h1><b>{{ product.name }}</b></h1>
 
 
                 <div class="fs-1">
@@ -67,49 +67,67 @@ Homepage
                   </p>
                 </div>
 
-                <h2>$50</h2>
+                <h2>${{ product.price }}</h2>
 
                 <div class="container bg-black rounded-5 p-3">
                   <h4>Product description:</h4>
                   <hr>
                   <small class="text-secondary">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio doloremque unde sit, fugiat ullam consectetur similique illo aut perspiciatis alias.
+                    {{ product.description }}
                   </small>
                 </div>
 
                 <br>
                 <hr class="bg-gray-800 w-100">
                 <br>
-                <label for="variation" class="form-label"><h4>Flavors:</h4></label>
-                <select class="form-control form-control-lg border-dark form-select" id="variation" required>
-                  <option selected disabled value="">Choose...</option>
-                  <option>variation1 (In Stock!)</option>
-                  <option disabled value="">variation (Out of Stock!)</option>
-                </select>
 
-                <br>
-                <label for="amount"><h4>Amount:</h4></label>
-                <input type="number" class="form-control form-control-lg border-dark" id="amount" max="10">
+                <form method="POST">
+                  <label for="variation" class="form-label"><h4>Variations:</h4></label>
+                  <select class="form-control form-control-lg border-dark form-select" id="variation" required>
+                    <option selected disabled value="">Choose...</option>
+
+                    {% for variation in variations %}
+
+                      {% if variation.stock < 1 %}
+
+                        <option disabled value="">{{ variation.name }} (Out of Stock!)</option>
+
+                      {% else %}
+
+                        <option>{{ variation.name }} (In Stock!)</option>
+
+                      {% endif %}
+
+                    {% endfor %}
+
+                  </select>
+
+                  <br>
+                  <label for="amount"><h4>Amount:</h4></label>
+                  <input type="number" class="form-control form-control-lg border-dark" id="amount" oninput="calculateResult()">
 
 
-                <br>
-                <h2>Total: $200</h2>
+                  <br>
+                  <h2>Total: $<span id="total">0</span></h2>
 
-                <p class="text-secondary">Note: orders made with crypto will get a discount!</p>
-                <div class="d-flex">
-                  <a href="register.html"
-                    aria-label="View"
-                    class="w-100 btn btn-outline-light"
-                    style="margin: 0px 5px;">
-                    <small>View Cart</small>
-                  </a>
-                  <a href="register.html"
-                    aria-label="Purchace"
-                    class="w-100 btn btn-light"
-                    style="margin: 0px 5px;">
-                    <small>Add to Cart</small>
-                  </a>
-                </div>
+                  <p class="text-secondary">Note: orders made with crypto will get a discount!</p>
+                  <div class="d-flex">
+                    <a href="register.html"
+                      aria-label="View"
+                      class="w-100 btn btn-outline-light"
+                      style="margin: 0px 5px;">
+                      <small>View Cart</small>
+                    </a>
+                    <a href="register.html"
+                      aria-label="Purchace"
+                      class="w-100 btn btn-light"
+                      style="margin: 0px 5px;">
+                      <small>Add to Cart</small>
+                    </a>
+                  </div>
+                </form>
+
+
               </div>
             </div>
           </div>
@@ -119,5 +137,13 @@ Homepage
       </div>
     </div>
 </main>
+
+<script>
+function calculateResult() {
+  const amount = document.getElementById("amount").value;
+  const result = amount * {{ product.price }}; // your calculation here
+  document.getElementById("total").textContent = result;
+}
+</script>
 
 {% endblock main %}

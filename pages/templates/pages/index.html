@@ -16,17 +16,19 @@ Homepage
       <div class="position-absolute w-100 h-100 bg-black opacity-75 top-0 start-0"></div>
       <div class="container py-vh-4 position-relative px-vw-5 text-center">
         <div class="row d-flex align-items-center justify-content-center ">
-          <div class="col-12 col-xl-10">
+          <!-- <div class="col-12 col-xl-10"> -->
             <!-- <span class="h5 text-secondary fw-lighter">Our Journey</span> -->
             <!-- <h1 class="display-huge mt-3 mb-3 lh-1">Launch Your NFT Adventure with <span class="nowrap">NFT-SPACE</span></h1> -->
-            <img class="img-fluid" src="{% static 'img/logo.png' %}" alt="hero" height="400">
-          </div>
+            <!-- <img class="img-fluid" src="{% static 'img/logo.png' %}" alt="hero" height="400"> -->
+          <!-- </div> -->
           <!-- <div class="col-12 col-xl-8"> -->
           <!--   <p class="lead text-secondary">We are some sort of DAO working with AI, NFT´s, web 4.0 and the so called -->
           <!--     blockchain...in the Metaverse. You don´t understand a word? No problem, we neither!</p> -->
           <!-- </div> -->
+        {% if user.is_verified %}
+
           <div class="col-12 text-center">
-            <a href="/register" class="btn btn-xl btn-light">Join us
+            <a href="/market" class="btn btn-xl btn-light">Join us
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-arrow-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -34,13 +36,27 @@ Homepage
               </svg>
             </a>
           </div>
+
+        {% else %}
+
+          <div>
+            <!-- <a href="#" aria-label="Login" -->
+            <!--   class="btn btn-outline-light" -->
+            <!--   style="margin: 0px 5px;"> -->
+            <!--   <small>Waiting for authentication</small> -->
+            <!-- </a> -->
+            <p>“To be verified contact us via DM”</p>
+          </div>
+
+        {% endif %}
+          
         </div>
       </div>
-
+      </div>
     </div>
 
 
-  <div class="py-vh-5"> </div>
+  <!-- <div class="py-vh-5"> </div> -->
 
   </main>
 {% endblock main %}

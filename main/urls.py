@@ -31,6 +31,7 @@ urlpatterns = [
     path("", include("django.contrib.auth.urls")),
     path("register/", account_views.register, name="register"),
     path("market/", market_views.market, name="market"),
+    path("market/<int:id>", market_views.product, name="product"),
     path("profile/", page_views.profile, name="profile"),
 ]
 
