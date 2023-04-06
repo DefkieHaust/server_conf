@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 
@@ -12,6 +13,11 @@ def register(resp):
             form = RegisterForm(resp.POST)
             if form.is_valid():
                 form.save()
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password1')
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(resp, user)
                 return redirect("/")
         else:
             form = RegisterForm()

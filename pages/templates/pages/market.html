@@ -20,10 +20,7 @@ Market page
           <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12">
             <div class="card bg-transparent mb-5" data-aos="zoom-in-up">
               <div class="bg-dark shadow rounded-5 p-0">
-                <img src="
-                     {{ media_url }}
-                     {{ product.image }}
-                " height="170"
+                <img src="{{ media_url }}{{ product.image }}" height="170"
                 style="object-fit: cover;"
                 alt="abstract image"
                   class="w-100 rounded-5 no-bottom-radius" loading="lazy">
@@ -34,7 +31,7 @@ Market page
                     </b>
                   </h6>
                   <p class="text-secondary p2row">
-                   <!-- $ product.variations.all()[0].price }} -->
+                    ${{ product.price }}
                   </p>
                   <div class="d-flex">
                     <a href="register.html"
