@@ -81,7 +81,7 @@ Homepage
                 <hr class="bg-gray-800 w-100">
                 <br>
 
-                <form method="POST">
+                <form method="POST" action="#">
                   <label for="variation" class="form-label"><h4>Variations:</h4></label>
                   <select class="form-control form-control-lg border-dark form-select" id="variation" required>
                     <option selected disabled value="">Choose...</option>
@@ -104,7 +104,7 @@ Homepage
 
                   <br>
                   <label for="amount"><h4>Amount:</h4></label>
-                  <input type="number" class="form-control form-control-lg border-dark" id="amount" oninput="calculateResult()">
+                  <input type="number" class="form-control form-control-lg border-dark" id="amount" value="1" min="1" max="1000" oninput="calculateResult()">
 
 
                   <br>
@@ -112,18 +112,18 @@ Homepage
 
                   <p class="text-secondary">Note: orders made with crypto will get a discount!</p>
                   <div class="d-flex">
-                    <a href="register.html"
-                      aria-label="View"
+                    <button type="submit"
+                      name="view_cart"
                       class="w-100 btn btn-outline-light"
                       style="margin: 0px 5px;">
                       <small>View Cart</small>
-                    </a>
-                    <a href="register.html"
-                      aria-label="Purchace"
+                    </button>
+                    <button type="submit"
+                      name="add_to_cart"
                       class="w-100 btn btn-light"
                       style="margin: 0px 5px;">
                       <small>Add to Cart</small>
-                    </a>
+                    </button>
                   </div>
                 </form>
 
