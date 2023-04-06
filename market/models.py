@@ -58,6 +58,14 @@ class CartItem(models.Model):
     amount = models.IntegerField()
 
 
+class PaymentMethod(models.Model):
+    name = models.CharField(max_length=20)
+    description = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
 class Order(models.Model):
     user = models.ForeignKey(
             settings.AUTH_USER_MODEL,
@@ -66,6 +74,10 @@ class Order(models.Model):
             )
     cart = models.ForeignKey(
                 Cart,
+                on_delete=models.CASCADE,
+            )
+    paymentmethod = models.ForeignKey(
+                PaymentMethod,
                 on_delete=models.CASCADE,
             )
     address = models.CharField(max_length=100)
@@ -77,4 +89,4 @@ class Order(models.Model):
             status = "Completed"
         else:
             status = "Pending"
-        return f"Order by {self.user}: {status}"
+        return f"Order by {self.user}/{self.paymentmethod}: {status}"
