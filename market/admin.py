@@ -5,8 +5,7 @@ from .models import *
 
 admin.site.register(Product)
 admin.site.register(Variation)
-admin.site.register(Cart)
 admin.site.register(CartItem)
+admin.site.register(OrderItem)
 admin.site.register(Order)
 admin.site.register(PaymentMethod)
-admin.site.register(CompleteOrder)

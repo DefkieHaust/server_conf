@@ -23,12 +23,24 @@ Orders page
     height: 2px;
     width: %100;
   }
+  .acc-1 {
+    background-color: #444;
+    color: #fff;
+  }
+  .acc-2 {
+    background-color: #333;
+    color: #fff;
+  }
+  .accb-1 {
+    background-color: #222;
+    color: #fff;
+  }
 </style>
 {% endblock head-extra %}
 
 <main>
     <div class="container">
-      <div class="row d-flex justify-content-center pb-0">
+      <div class="row d-flex justify-content-center py-vh-3 pb-0">
 
         <div class="col-12">
           <h1>Cart</h1>
@@ -74,15 +86,113 @@ Orders page
             </table>
           </div>
 
+          <button style="" type="submit" class="btn btn-danger mt-2">Remove Selected</button>
           <hr>
-          <button style="" type="submit" class="btn btn-danger">Remove Selected</button>
-          <button type="submit" class="btn btn-light">Place Order</button>
-          <div class="hr-1 mt-5"></div>
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed acc-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Create Order
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body accb-1">
+
+
+          <label for="paymemt" class="form-label"><h4 class="text-light">Payment Method:</h4></label>
+          <select class="form-control form-control-lg border-dark form-select" id="payment" name="variation" required>
+            <option selected disabled value="">Choose...</option>
+
+            <option>Monero</option>
+
+          </select>
+
+          <br>
+          <label for="address"><h4 class="text-light">Address:</h4></label>
+          <input type="text" class="form-control form-control-lg border-dark" id="address" name="address">
+          <button type="submit" class="btn btn-light mt-3">Place Order</button>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="hr-1 mt-4"></div>
 
           <h1 class="mt-3">Orders</h1>
           <hr>
             
-            
+           
+
+
+
+
+
+
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Accordion Item #1
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body accb-1">
+        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Accordion Item #2
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body accb-1">
+        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Accordion Item #3
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body accb-1">
+        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+          <div class="hr-1 mt-4"></div>
+
+          <h1 class="mt-3">User</h1>
+          <hr>
+
+
+          <button style="" type="submit" class="btn btn-danger mt-2">Logout</button>
+
 
       </div>
     </div>
