@@ -1,4 +1,4 @@
-import uuid
+from uuid import uuid4
 from django.utils import timezone
 from django.db import models
 from django.db.models.signals import pre_save, post_save
@@ -36,7 +36,7 @@ class CartItem(models.Model):
     user = models.ForeignKey(
                 User,
                 on_delete=models.CASCADE,
-                related_name='items',
+                related_name='cart',
             )
     item = models.ForeignKey(
                 Variation,
@@ -76,7 +76,7 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         if not self.pk:
             # Only run the function if the object is being created
-            self.order_id = str(uuid.uuid4())
+            self.order_id = str(uuid4())
         super(Order, self).save(*args, **kwargs)
 
 
@@ -129,3 +129,18 @@ def update_cart(request, delete=False):
         new_cartitem.item = variation_object
         new_cartitem.amount = amount
         new_cartitem.save()
+
+
+def create_order(request, total,  payment, address):
+    new_order = Order()
+    new_order.user = request.user
+    new_order.payment_method = payment
+    new_order.pay_amount = total
+    new_order.address = address
+    new_order.save()
+    for item in request.user.cart.all():
+        order_item = OrderItem()
+        order_item.order = new_order.pk
+        order_item.item = item.item
+        order_item.amount = item.amount
+        item.delete()

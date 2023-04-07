@@ -43,157 +43,190 @@ Orders page
       <div class="row d-flex justify-content-center py-vh-3 pb-0">
 
         <div class="col-12">
-          <h1>Cart</h1>
-          <hr>
-          <div class="table-responsive">
-            <table class="table table-dark table-striped table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="selectall">
-                  </th>
-                  <th scope="col">#</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Total</th>
-                </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                <tr>
-                  <th>
-                    <input class="form-check-input" type="checkbox" value="" id="select1">
-                  </th>
-                  <th scope="row">1</th>
-                  <td class="nowrap">Sample > Pv1</td>
-                  <td class="nowrap">36</td>
-                  <td class="nowrap">$370.99</td>
-                </tr>
-                <tr>
-                  <th>
-                    <input class="form-check-input" type="checkbox" value="" id="select2">
-                  </th>
-                  <th scope="row">2</th>
-                  <td class="nowrap">Sample2 > Pv1</td>
-                  <td class="nowrap">2</td>
-                  <td class="nowrap">$40.00</td>
-                </tr>
-                <tr class="table-group-divider">
-                  <th colspan="3"></th>
-                  <th>Total</th>
-                  <th class="nowrap">$410.99</th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
 
-          <button style="" type="submit" class="btn btn-danger mt-2">Remove Selected</button>
-          <hr>
+          <form method="POST" action="#">
 
-<div class="accordion accordion-flush" id="accordionFlushExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed acc-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-        Create Order
-      </button>
-    </h2>
-    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body accb-1">
+            <h1>Cart</h1>
+            <hr>
+            <div class="table-responsive">
+              <table class="table table-dark table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="selectall">
+                    </th>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr>
+                    <th>
+                      <input class="form-check-input" type="checkbox" value="" id="select1">
+                    </th>
+                    <th scope="row">1</th>
+                    <td class="nowrap">
+                      <a href="#" class="link-light link-underline-opacity-0 link-underline-opacity-100-hover">
 
+                        Sample > Pv1
+                      </a>
+                    </td>
+                    <td class="nowrap">36</td>
+                    <td class="nowrap">$370.99</td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <input class="form-check-input" type="checkbox" value="" id="select2">
+                    </th>
+                    <th scope="row">2</th>
+                    <td class="nowrap">
+                      <a href="#" class="link-light link-underline-opacity-0 link-underline-opacity-100-hover">
+                        Sample > Pv1
+                      </a>
+                    </td>
+                    <td class="nowrap">2</td>
+                    <td class="nowrap">$40.00</td>
+                  </tr>
+                  <tr class="table-group-divider">
+                    <th colspan="3"></th>
+                    <th>Total</th>
+                    <th class="nowrap">$410.99</th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-          <label for="paymemt" class="form-label"><h4 class="text-light">Payment Method:</h4></label>
-          <select class="form-control form-control-lg border-dark form-select" id="payment" name="variation" required>
-            <option selected disabled value="">Choose...</option>
+            <button type="submit" class="btn btn-danger mt-2">Remove Selected</button>
+            <hr>
 
-            <option>Monero</option>
-
-          </select>
-
-          <br>
-          <label for="address"><h4 class="text-light">Address:</h4></label>
-          <input type="text" class="form-control form-control-lg border-dark" id="address" name="address">
-          <button type="submit" class="btn btn-light mt-3">Place Order</button>
+            <div class="accordion accordion-flush" id="accordionFlush">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed acc-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Create Order
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+                  <div class="accordion-body accb-1">
 
 
+                  <label for="paymemt" class="form-label"><span class="text-light h6">Payment Method:</span></label>
+                  <select class="form-control form-control-lg border-dark form-select" id="payment" name="variation" required>
+                    <option selected disabled value="">Choose...</option>
 
-      </div>
-    </div>
-  </div>
-</div>          
+                    <option>Monero</option>
 
+                  </select>
 
+                  <br>
+                  <label for="address"><span class="text-light h6">Address:</span></label>
+                  <input type="text" class="form-control form-control-lg border-dark" id="address" name="address">
 
-
-
-
-
-
-
-
-
+                  <h3 class="mt-3">Total: $410.99</h3>
+                  <button type="submit" class="btn btn-light mt-3">Place Order</button>
 
 
-          <div class="hr-1 mt-4"></div>
-
-          <h1 class="mt-3">Orders</h1>
-          <hr>
-            
-           
+                </div>
+              </div>
+            </div>
 
 
+            <div class="hr-1 mt-4"></div>
+
+            <h1 class="mt-3">Orders</h1>
+            <hr>
 
 
+            <div class="accordion" id="accordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    9cd81c46-3118-4526-b543-f5ee34bcdd94 
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordion">
+                  <div class="accordion-body accb-1">
+                    <strong>Order Id:</strong><br>
+                    9cd81c46-3118-4526-b543-f5ee34bcdd94
+                    <hr>
+                    <strong>Payment Method:</strong><br>
+                    Menero
+                    <hr>
+                    <strong>Pay Amount:</strong><br>
+                    $410.99
+                    <hr>
+                    <strong>Address:</strong><br>
+                    123 fake street
+                    <hr>
+                    <strong>Order Date:</strong><br>
+                    19:38 02-10-2023
+                    <hr>
+                    <strong>Ordered Items:</strong><br>
+
+                    <div class="table-responsive">
+                      <table class="table table-dark table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                          <tr>
+                            <th scope="row">1</th>
+                            <td class="nowrap">Sample > Pv1</td>
+                            <td class="nowrap">36</td>
+                            <td class="nowrap">$370.99</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Accordion Item #2
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                  <div class="accordion-body accb-1">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Accordion Item #3
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                  <div class="accordion-body accb-1">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-1 mt-4"></div>
+
+            <h1 class="mt-3">User</h1>
+            <hr>
 
 
-<div class="accordion" id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Accordion Item #1
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-      <div class="accordion-body accb-1">
-        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Accordion Item #2
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body accb-1">
-        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Accordion Item #3
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body accb-1">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-</div>
+            <button style="" type="submit" class="btn btn-danger my-2">Logout</button>
+
+          </form>
 
 
-
-          <div class="hr-1 mt-4"></div>
-
-          <h1 class="mt-3">User</h1>
-          <hr>
-
-
-          <button style="" type="submit" class="btn btn-danger mt-2">Logout</button>
-
-
+        </div>
       </div>
     </div>
 </main>
