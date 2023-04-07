@@ -1,5 +1,5 @@
+import uuid
 from django.db import models
-from django.conf import settings
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from accounts.models import User
@@ -67,30 +67,49 @@ class PaymentMethod(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(
-            settings.AUTH_USER_MODEL,
-            on_delete=models.CASCADE,
-            related_name="orders",
-            )
-    cart = models.ForeignKey(
-                Cart,
-                on_delete=models.CASCADE,
-            )
-    paymentmethod = models.ForeignKey(
-                PaymentMethod,
-                on_delete=models.CASCADE,
-            )
+    user = models.CharField(max_length=20)
+    order_id = models.CharField(max_length=36, blank=True)
+    items_detail = models.CharField(max_length=9999)
+    paymentmethod = models.CharField(max_length=1000)
     address = models.CharField(max_length=100)
     order_date = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField()
 
     def __str__(self):
-        if self.completed:
-            status = "Completed"
-        else:
-            status = "Pending"
-        return f"Order by {self.user}/{self.paymentmethod}: {status}"
+        return f"{self.user} > {self.order_id}"
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # Only run the function if the object is being created
+            self.my_property = str(uuid.uuid4())
+        super(Order, self).save(*args, **kwargs)
+
+
+class CompleteOrder(models.Model):
+    user = models.CharField(max_length=20)
+    order_id = models.CharField(max_length=36, blank=True)
+    items_detail = models.CharField(max_length=9999)
+    paymentmethod = models.CharField(max_length=1000)
+    address = models.CharField(max_length=100)
+    order_date = models.DateTimeField()
+    complete_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} > {self.order_id} "
+
+
+@receiver(post_save, sender=Order)
+def on_complete(sender, instance, *args, **kwargs):
+    if instance.pk:
+        CompleteOrder(
+            user = instance.user,
+            order_id = instance.order_id,
+            items_detail = instance.items_detail,
+            paymentmethod = instance.paymentmethod,
+            address = instance.address,
+            order_date = instance.order_date
+        ).save()
+        instance.delete()
 
 @receiver(pre_save, sender=Product)
 def delete_old_image(sender, instance, *args, **kwargs):

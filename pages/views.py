@@ -11,6 +11,6 @@ def home(resp):
 @login_required(login_url='/login/')
 def profile(resp):
     if resp.user.is_verified:
-        return render(resp, "pages/base.html")
+        return render(resp, "pages/profile.html")
     else:
         return redirect("/")
