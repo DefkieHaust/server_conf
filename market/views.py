@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .models import Product
+from .models import Product, update_cart
 
 # Create your views here.
 
@@ -21,7 +21,13 @@ def market(resp):
 @login_required(login_url='/login/')
 def product(resp, id):
     if resp.user.is_verified:
-        if (item := Product.objects.filter(pk=id)[0]):
+        if resp.method == "POST":
+            update_cart(resp)
+            if resp.POST.get("purchase"):
+                return
+            else:
+                return redirect("/market/")
+        elif (item := Product.objects.filter(pk=id)[0]):
             relay = {
                 "media_url": settings.MEDIA_URL,
                 "product": item,
