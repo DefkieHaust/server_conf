@@ -25,10 +25,15 @@ Homepage
           <!--   <p class="lead text-secondary">We are some sort of DAO working with AI, NFT´s, web 4.0 and the so called -->
           <!--     blockchain...in the Metaverse. You don´t understand a word? No problem, we neither!</p> -->
           <!-- </div> -->
-        {% if user.is_verified %}
+        {% if user.is_verified or not user.is_authenticated %}
 
           <div class="col-12 text-center">
-            <a href="/market" class="btn btn-xl btn-light">Join us
+            <a href="/market" class="btn btn-xl btn-light">
+              {% if user.is_verified %}
+                Market
+              {% else %}
+                Join us
+              {% endif %}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-arrow-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"

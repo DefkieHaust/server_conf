@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load mathfilters %}
+
 {% block title %}
 The Milky Way | Orders
 {% endblock title %}
@@ -44,7 +46,8 @@ Orders page
 
         <div class="col-12">
 
-          <form method="POST" action="#">
+          <form method="POST" id="cart-form" action="#">
+            {% csrf_token %}
 
             <h1>Cart</h1>
             <hr>
@@ -62,44 +65,41 @@ Orders page
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <tr>
-                    <th>
-                      <input class="form-check-input" type="checkbox" value="" id="select1">
-                    </th>
-                    <th scope="row">1</th>
-                    <td class="nowrap">
-                      <a href="#" class="link-light link-underline-opacity-0 link-underline-opacity-100-hover">
-
-                        Sample > Pv1
-                      </a>
-                    </td>
-                    <td class="nowrap">36</td>
-                    <td class="nowrap">$370.99</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <input class="form-check-input" type="checkbox" value="" id="select2">
-                    </th>
-                    <th scope="row">2</th>
-                    <td class="nowrap">
-                      <a href="#" class="link-light link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Sample > Pv1
-                      </a>
-                    </td>
-                    <td class="nowrap">2</td>
-                    <td class="nowrap">$40.00</td>
-                  </tr>
+                  {% for item in cartitems  %}
+                    <tr>
+                      <th>
+                        <input class="form-check-input" type="checkbox" name="{{ item.pk }}" value="{{ item.pk }}" id="select1">
+                      </th>
+                      <th scope="row">
+                        {{ forloop.counter }}
+                      </th>
+                      <td class="nowrap">
+                        <a href="/market/{{ item.item.product.pk }}" class="link-light link-underline-opacity-0 link-underline-opacity-100-hover">
+                          {{ item.item }}
+                        </a>
+                      </td>
+                      <td class="nowrap">
+                        {{ item.amount }}
+                      </td>
+                      <td class="nowrap">
+                        ${{ item.item.product.price | mul:item.amount | floatformat }}
+                      </td>
+                    </tr>
+                  {% endfor %}
                   <tr class="table-group-divider">
                     <th colspan="3"></th>
                     <th>Total</th>
-                    <th class="nowrap">$410.99</th>
+                    <th class="nowrap">
+                      ${{ total }}
+                    </th>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <button type="submit" class="btn btn-danger mt-2">Remove Selected</button>
+            <button type="submit" class="btn btn-danger mt-2" name="rm_s" value="rm-s" {% if not cartitems %}disabled{% endif %}>Remove Selected</button>
             <hr>
+          </form>
 
             <div class="accordion accordion-flush" id="accordionFlush">
               <div class="accordion-item">
@@ -111,21 +111,30 @@ Orders page
                 <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
                   <div class="accordion-body accb-1">
 
+                    <form method="POST" action="#">
+                      {% csrf_token %}
 
-                  <label for="paymemt" class="form-label"><span class="text-light h6">Payment Method:</span></label>
-                  <select class="form-control form-control-lg border-dark form-select" id="payment" name="variation" required>
-                    <option selected disabled value="">Choose...</option>
+                      <label for="paymemt" class="form-label"><span class="text-light h6">Payment Method:</span></label>
+                      <select class="form-control form-control-lg border-dark form-select" id="payment" name="payment_method" required>
+                        <option selected disabled value="">Choose...</option>
+                        
+                        {% for pay_m in pay_ms %}
+                        <option>{{ pay_m.name }}</option>
+                        {% endfor %}
 
-                    <option>Monero</option>
+                      </select>
 
-                  </select>
+                      <p class="text-secondary">Note: orders made with crypto will get a discount!</p>
 
-                  <br>
-                  <label for="address"><span class="text-light h6">Address:</span></label>
-                  <input type="text" class="form-control form-control-lg border-dark" id="address" name="address">
+                      <label for="address"><span class="text-light h6">Address:</span></label>
+                      <input type="text" class="form-control form-control-lg border-dark" id="address" name="address">
 
-                  <h3 class="mt-3">Total: $410.99</h3>
-                  <button type="submit" class="btn btn-light mt-3">Place Order</button>
+                      <h3 class="mt-3">
+                        Total: ${{ total }}
+                      </h3>
+                      <button {% if total < 1 %}disabled{% endif %} type="submit" class="btn btn-light mt-3" name="placeorder" value="placeorder">Place Order</button>
+
+                    </form>
 
 
                 </div>
@@ -138,81 +147,93 @@ Orders page
             <h1 class="mt-3">Orders</h1>
             <hr>
 
+            <div class="accordion" id="accordion-round">
 
-            <div class="accordion" id="accordion">
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    9cd81c46-3118-4526-b543-f5ee34bcdd94 
-                  </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordion">
-                  <div class="accordion-body accb-1">
-                    <strong>Order Id:</strong><br>
-                    9cd81c46-3118-4526-b543-f5ee34bcdd94
-                    <hr>
-                    <strong>Payment Method:</strong><br>
-                    Menero
-                    <hr>
-                    <strong>Pay Amount:</strong><br>
-                    $410.99
-                    <hr>
-                    <strong>Address:</strong><br>
-                    123 fake street
-                    <hr>
-                    <strong>Order Date:</strong><br>
-                    19:38 02-10-2023
-                    <hr>
-                    <strong>Ordered Items:</strong><br>
+              {% if orders %}
 
-                    <div class="table-responsive">
-                      <table class="table table-dark table-striped table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                          <tr>
-                            <th scope="row">1</th>
-                            <td class="nowrap">Sample > Pv1</td>
-                            <td class="nowrap">36</td>
-                            <td class="nowrap">$370.99</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                {% for order in orders %}
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button acc-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                        {{ order.order_id }} 
+                      </button>
+                    </h2>
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordion-round">
+                      <div class="accordion-body accb-1">
+                        <strong>Order Id:</strong><br>
+                        {{ order.order_id }}
+                        <hr>                      <strong>Order Status:</strong><br>
+                        {% if order.payment_received %}
+                          {% if order.delivered %}
+                            Delivered
+                          {% else %}
+                            Processing Order
+                          {% endif %}
+                        {% else %}
+                          Waiting for payent
+                        {% endif %}
+                        <hr>
+                        {% if order.delivery_date %}
+                          <strong>Delivery Date:</strong><br>
+                          {{ order.delivery_date }} (UTC)
+                          <hr>
+                        {% endif %}
+                        <strong>Payment Method:</strong><br>
+                        {{ order.payment_method }}
+                        <hr>
+                        <strong>Pay Amount:</strong><br>
+                        ${{ order.pay_amount }}
+                        <hr>
+                        <strong>Address:</strong><br>
+                        {{ order.address }}
+                        <hr>
+                        <strong>Order Date:</strong><br>
+                        {{ order.order_date }} (UTC)
+                        <hr>
+                        <strong>Ordered Items:</strong><br>
+
+                        <div class="table-responsive">
+                          <table class="table table-dark table-striped table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Total</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+
+                              {% for item in order.items.all %}
+                                <tr>
+                                  <th scope="row">
+                                    {{ forloop.counter }}
+                                  </th>
+                                  <td class="nowrap">
+                                    {{ item.item }}
+                                  </td>
+                                  <td class="nowrap">
+                                    {{ item.amount }}
+                                  </td>
+                                  <td class="nowrap">
+                                    ${{ item.item.product.price | mul:item.amount }}
+                                  </td>
+                                </tr>
+                              {% endfor %}
+
+                            </tbody>
+                          </table>
+                        </div>
+
+                      </div>
                     </div>
+                  </div>
+                {% endfor %}
 
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Accordion Item #2
-                  </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                  <div class="accordion-body accb-1">
-                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed acc-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Accordion Item #3
-                  </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                  <div class="accordion-body accb-1">
-                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                  </div>
-                </div>
-              </div>
+              {% else %}
+                <span class="h5 my-2 ms-3">No orders!</span>
+              {% endif %}
+
             </div>
 
             <div class="hr-1 mt-4"></div>
@@ -220,15 +241,32 @@ Orders page
             <h1 class="mt-3">User</h1>
             <hr>
 
+            <a href="/logout">
+              <button class="btn btn-danger my-2">Logout</button>
+            </a>
 
-            <button style="" type="submit" class="btn btn-danger my-2">Logout</button>
-
-          </form>
 
 
         </div>
       </div>
     </div>
 </main>
+
+<script>
+let superCheck = document.querySelector('#selectall');
+let checkBoxes = document.querySelectorAll('#cart-form input[type="checkbox"]');
+
+superCheck.addEventListener('change', function() {
+  if (superCheck.checked) {
+    checkBoxes.forEach(function(checkbox) {
+      checkbox.checked = true;
+    });
+  } else {
+    checkBoxes.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+  }
+});
+</script>
 
 {% endblock main %}

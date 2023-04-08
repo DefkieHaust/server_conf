@@ -51,6 +51,7 @@ class CartItem(models.Model):
 class PaymentMethod(models.Model):
     name = models.CharField(unique=True, max_length=20)
     description = models.CharField(max_length=200)
+    multiplier = models.FloatField(default=1.0, blank=True)
 
     def __str__(self):
         return self.name
@@ -67,8 +68,9 @@ class Order(models.Model):
     pay_amount = models.FloatField()
     address = models.CharField(max_length=100)
     order_date = models.DateTimeField(auto_now_add=True)
-    complete_date = models.DateTimeField(blank=True)
-    completed = models.BooleanField()
+    delivery_date = models.DateTimeField(null=True, blank=True)
+    payment_received = models.BooleanField(default=False)
+    delivered = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user} > {self.order_id}"
@@ -98,8 +100,8 @@ class OrderItem(models.Model):
 
 @receiver(post_save, sender=Order)
 def on_complete(sender, instance, *args, **kwargs):
-    if instance.completed:
-        instance.complete_date = timezone.now()
+    if instance.delivered and not instance.delivery_date:
+        instance.delivery_date = timezone.now()
         instance.save()
 
 @receiver(pre_save, sender=Product)
@@ -110,23 +112,17 @@ def delete_old_image(sender, instance, *args, **kwargs):
             existing_image.image.delete(False)
 
 
-def update_cart(request, delete=False):
-    variation = request.POST.get("variation")
-    amount = request.POST.get("amount")
-    variation_object = Variation.objects.filter(name=variation)[0]
+def update_cart(request, variation, amount):
 
-    if (cartitem := request.user.items.filter(item=variation_object)):
+    if (cartitem := request.user.cart.filter(item=variation)):
         # cart item exists
-        if delete:
-            cartitem[0].delete()
-        else:
-            cartitem[0].amount = amount
-            cartitem[0].save()
+        cartitem[0].amount = amount
+        cartitem[0].save()
     else:
         # cart item doesn't exist
         new_cartitem = CartItem()
         new_cartitem.user = request.user
-        new_cartitem.item = variation_object
+        new_cartitem.item = variation
         new_cartitem.amount = amount
         new_cartitem.save()
 
@@ -140,7 +136,8 @@ def create_order(request, total,  payment, address):
     new_order.save()
     for item in request.user.cart.all():
         order_item = OrderItem()
-        order_item.order = new_order.pk
+        order_item.order = new_order
         order_item.item = item.item
         order_item.amount = item.amount
         item.delete()
+        order_item.save()

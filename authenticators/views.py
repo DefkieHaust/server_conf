@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 
@@ -23,3 +24,9 @@ def register(resp):
             form = RegisterForm()
         relay = {"form": form}
         return render(resp, "pages/register.html", relay)
+
+
+@login_required(login_url='/login/')
+def logout_view(resp):
+    logout(resp)
+    return redirect("/login/")

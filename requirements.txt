@@ -3,6 +3,7 @@ crispy-bootstrap5==0.7
 Django==4.2
 django-crispy-forms==2.0
 django-data-browser==4.0.13
+django-mathfilters==1.0.0
 hyperlink==21.0.0
 idna==3.4
 Pillow==9.5.0

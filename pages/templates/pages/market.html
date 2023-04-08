@@ -15,6 +15,8 @@ Market page
       <div class="row d-flex justify-content-center py-vh-3 pb-0">
         <div class="row gx-5">
 
+          <form method="POST" action="#">
+            {% csrf_token %}
 {% for product in products %}
 
           <div class="col-xxl-3 col-lg-4 col-md-6 col-sm-12">
@@ -40,12 +42,14 @@ Market page
                       style="margin: 0px 5px;">
                       <small>View</small>
                     </a>
-                    <a href="register.html"
+                    <button type="submit"
+                      name="{{ product.pk }}"
+                      value="{{ product.pk }}"
                       aria-label="Purchace"
                       class="w-100 btn btn-light"
                       style="margin: 0px 5px;">
                       <small>Purchace</small>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -53,6 +57,7 @@ Market page
           </div>
 
 {% endfor %}
+          </form>
 
         </div>
       </div>

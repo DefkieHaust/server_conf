@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "crispy_bootstrap5",
+    "mathfilters",
     "data_browser",
     "pages",
     "accounts",
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-#TIME_ZONE = "UTC"
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
