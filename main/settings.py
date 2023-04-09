@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-zv_%#ypp$0uq#k%gi57a_#103%i=f!m7qw!%ch8&i7$jqkyce(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".milkyway.menu", "*"]
 
 
 # Application definition
@@ -128,8 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "pages/static"
+#STATICFILES_DIRS = [BASE_DIR / "pages/static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -141,3 +142,6 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = '/'
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True

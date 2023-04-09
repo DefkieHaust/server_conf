@@ -7,6 +7,11 @@ from accounts.models import User
 
 # Create your models here.
 
+payment_opts = [
+        ("crypto", "crypto"),
+        ("bank", "bank"),
+    ]
+
 
 class Product(models.Model):
     name = models.CharField(unique=True, max_length=50)
@@ -52,6 +57,7 @@ class PaymentMethod(models.Model):
     name = models.CharField(unique=True, max_length=20)
     description = models.CharField(max_length=200)
     multiplier = models.FloatField(default=1.0, blank=True)
+    type = models.CharField(max_length=20, choices=payment_opts)
 
     def __str__(self):
         return self.name
