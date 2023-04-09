@@ -19,12 +19,14 @@ def profile(resp):
             total += item.amount * item.item.product.price
         orders = resp.user.orders.all()
         pay_ms = PaymentMethod.objects
-        pay_mc = pay_mb = ""
+        pay_mc = pay_mb = pay_mm = ""
         if resp.user.allow_crypto:
             pay_mc = pay_ms.filter(type="crypto")
         if resp.user.allow_bank:
             pay_mb = pay_ms.filter(type="bank")
-        pay_mt = list(chain(pay_mc, pay_mb))
+        if resp.user.allow_cash:
+            pay_mm = pay_ms.filter(type="cash")
+        pay_mt = list(chain(pay_mc, pay_mb, pay_mm))
         if resp.method == "POST":
             print(resp.POST)
             if resp.POST.get("rm_s"):

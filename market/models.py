@@ -10,6 +10,7 @@ from accounts.models import User
 payment_opts = [
         ("crypto", "crypto"),
         ("bank", "bank"),
+        ("cash", "cash"),
     ]
 
 

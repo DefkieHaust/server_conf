@@ -10,4 +10,5 @@ class User(AbstractUser):
     is_verified = models.BooleanField(default=False)
     allow_crypto = models.BooleanField(default=False)
     allow_bank = models.BooleanField(default=False)
+    allow_cash = models.BooleanField(default=False)
     objects = UserManager()
