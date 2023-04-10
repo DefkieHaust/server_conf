@@ -20,19 +20,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from pages import views as page_views
-from authenticators import views as account_views
+from authenticators import views as user_views
 from market import views as market_views
+from accounts import views as account_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("db/", include("data_browser.urls")),
     path("", page_views.home, name="home"),
     path('login/', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
-    path("register/", account_views.register, name="register"),
-    path("logout/", account_views.logout_view, name="logout"),
+    path("register/", user_views.register, name="register"),
+    path("logout/", user_views.logout_view, name="logout"),
     path("market/", market_views.market, name="market"),
     path("market/<int:id>", market_views.product, name="product"),
     path("cart/", page_views.cart, name="cart"),
+    path("address/", account_views.address, name="address"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

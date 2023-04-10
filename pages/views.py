@@ -18,6 +18,7 @@ def cart(resp):
         for item in cartitems:
             total += item.amount * item.item.product.price
         orders = resp.user.orders.all()
+        addresses = resp.user.addresses.all()
         pay_ms = PaymentMethod.objects
         ship_ms = ShipmentMethod.objects
         pay_mc = pay_mb = pay_mm = ""
@@ -39,17 +40,18 @@ def cart(resp):
             elif resp.POST.get("placeorder"):
                 pm_name = resp.POST.get("payment_method")
                 sm_name = resp.POST.get("shipment_method")
+                addrs = resp.POST.get("address")
+                addrs_obj = resp.user.addresses.filter(pk=int(addrs))[0]
                 pm_object = pay_ms.filter(name=pm_name)[0]
                 sm_object = ship_ms.filter(name=sm_name)[0]
                 p_total = (total * pm_object.multiplier) + sm_object.fee
                 if p_total > 0:
                     payment = f"{pm_object.name}: {pm_object.description}"
-                    address = resp.POST.get("address")
                     create_order(
                             resp,
                             round(p_total, 2),
                             payment,
-                            address,
+                            addrs_obj,
                             sm_object,
                         )
                     return redirect("/cart/")
@@ -59,6 +61,7 @@ def cart(resp):
             "orders": orders,
             "pay_ms": pay_mt,
             "ship_ms": ship_ms.all(),
+            "addresses": addresses,
         }
         return render(resp, "pages/cart.html", relay)
     else:
