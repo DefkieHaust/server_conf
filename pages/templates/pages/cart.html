@@ -105,7 +105,7 @@ Orders page
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed acc-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Create Order
+                    Click to select payment method and provide your shipping address.
                   </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
@@ -120,6 +120,16 @@ Orders page
                         
                         {% for pay_m in pay_ms %}
                         <option>{{ pay_m.name }}</option>
+                        {% endfor %}
+
+                      </select>
+
+                      <label for="shipment" class="form-label"><span class="text-light h6">Shipment:</span></label>
+                      <select class="form-control form-control-lg border-dark form-select" id="shipment" name="shipment_method" required>
+                        <option selected disabled value="">Choose...</option>
+                        
+                        {% for ship_m in ship_ms %}
+                        <option value="{{ ship_m.name }}">{{ ship_m.name }} (${{ ship_m.fee }})</option>
                         {% endfor %}
 
                       </select>
@@ -162,18 +172,20 @@ Orders page
                         {{ order.order_id }}
                         <hr>                      <strong>Order Status:</strong><br>
                         {% if order.payment_received %}
-                          {% if order.delivered %}
-                            Delivered
+                          {% if order.shipped %}
+                            Shipped
                           {% else %}
-                            Processing Order
+                            Payment confirmed<br>
+                            <p class="text-secondary">Note: we ship orders on Tuesday, Wednesday, Thursday.<br>
+                            Tracking number will appear in your email once shipped.</p>
                           {% endif %}
                         {% else %}
-                          Waiting for payent
+                          Waiting for payment
                         {% endif %}
                         <hr>
-                        {% if order.delivery_date %}
-                          <strong>Delivery Date:</strong><br>
-                          {{ order.delivery_date }} (UTC)
+                        {% if order.shipping_date %}
+                          <strong>Shipping Date:</strong><br>
+                          {{ order.shipping_date }} (UTC)
                           <hr>
                         {% endif %}
                         <strong>Payment Method:</strong><br>
@@ -181,6 +193,9 @@ Orders page
                         <hr>
                         <strong>Pay Amount:</strong><br>
                         ${{ order.pay_amount }}
+                        <hr>
+                        <strong>Shipment Method:</strong><br>
+                        {{ order.shipment_method }} (${{ order.shipment_method.fee }})
                         <hr>
                         <strong>Address:</strong><br>
                         {{ order.address }}

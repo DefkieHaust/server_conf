@@ -145,3 +145,10 @@ LOGIN_REDIRECT_URL = '/'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+CSRF_TRUSTED_ORIGINS = [
+        "https://milkyway.menu",
+        "https://www.milkyway.menu",
+        "https://localhost",
+        "https://127.0.0.1",
+]

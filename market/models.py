@@ -1,9 +1,10 @@
+from enum import unique
 from uuid import uuid4
 from django.utils import timezone
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
-from accounts.models import User
+from accounts.models import Address, User
 
 # Create your models here.
 
@@ -64,20 +65,40 @@ class PaymentMethod(models.Model):
         return self.name
 
 
+class ShipmentMethod(models.Model):
+    name = models.CharField(unique=True, max_length=20)
+    fee = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
 class Order(models.Model):
     user = models.ForeignKey(
                 User,
-                on_delete=models.CASCADE,
+                on_delete=models.SET_NULL,
                 related_name='orders',
+                null=True,
             )
     order_id = models.CharField(max_length=36, blank=True)
     payment_method = models.CharField(max_length=1000)
+    shipment_method = models.ForeignKey(
+                ShipmentMethod,
+                on_delete=models.SET_NULL,
+                related_name="orders",
+                null=True,
+            )
     pay_amount = models.FloatField()
-    address = models.CharField(max_length=100)
+    address = models.ForeignKey(
+                Address,
+                on_delete=models.SET_NULL,
+                related_name="orders",
+                null=True,
+            )
     order_date = models.DateTimeField(auto_now_add=True)
-    delivery_date = models.DateTimeField(null=True, blank=True)
+    shipping_date = models.DateTimeField(null=True, blank=True)
     payment_received = models.BooleanField(default=False)
-    delivered = models.BooleanField(default=False)
+    shipped = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user} > {self.order_id}"
@@ -97,7 +118,8 @@ class OrderItem(models.Model):
             )
     item = models.ForeignKey(
                 Variation,
-                on_delete=models.CASCADE,
+                on_delete=models.SET_NULL,
+                null=True
             )
     amount = models.IntegerField()
 
@@ -107,8 +129,8 @@ class OrderItem(models.Model):
 
 @receiver(post_save, sender=Order)
 def on_complete(sender, instance, *args, **kwargs):
-    if instance.delivered and not instance.delivery_date:
-        instance.delivery_date = timezone.now()
+    if instance.shipped and not instance.shipping_date:
+        instance.shipping_date = timezone.now()
         instance.save()
 
 @receiver(pre_save, sender=Product)
@@ -134,12 +156,13 @@ def update_cart(request, variation, amount):
         new_cartitem.save()
 
 
-def create_order(request, total,  payment, address):
+def create_order(request, total,  payment, address, shipment):
     new_order = Order()
     new_order.user = request.user
     new_order.payment_method = payment
     new_order.pay_amount = total
     new_order.address = address
+    new_order.shipment_method = shipment
     new_order.save()
     for item in request.user.cart.all():
         order_item = OrderItem()

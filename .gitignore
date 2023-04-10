@@ -1,2 +1,3 @@
 venv/
 admin.txt
+db.sqlite3

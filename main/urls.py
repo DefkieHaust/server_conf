@@ -32,7 +32,7 @@ urlpatterns = [
     path("logout/", account_views.logout_view, name="logout"),
     path("market/", market_views.market, name="market"),
     path("market/<int:id>", market_views.product, name="product"),
-    path("profile/", page_views.profile, name="profile"),
+    path("cart/", page_views.cart, name="cart"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

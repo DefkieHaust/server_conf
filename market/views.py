@@ -15,7 +15,7 @@ def market(resp):
             product_obj = Product.objects.get(pk=id)
             variation = Variation.objects.filter(product=product_obj)[0]
             update_cart(resp, variation, 1)
-            return redirect("/profile/")
+            return redirect("/cart/")
         relay = {
             "media_url": settings.MEDIA_URL,
             "products": Product.objects.filter(listed=True),
@@ -34,10 +34,10 @@ def product(resp, id):
             variation_object = Variation.objects.filter(name=variation)[0]
             update_cart(resp, variation_object, amount)
             if resp.POST.get("purchase"):
-                return redirect("/profile/")
+                return redirect("/cart/")
             else:
                 return redirect("/market/")
-        elif (item := Product.objects.filter(pk=id)[0]):
+        elif (item := Product.objects.filter(pk=id, listed=True)[0]):
             relay = {
                 "media_url": settings.MEDIA_URL,
                 "product": item,
