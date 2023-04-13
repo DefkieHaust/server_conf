@@ -21,6 +21,7 @@ def cart(resp):
         addresses = resp.user.addresses.all()
         pay_ms = PaymentMethod.objects
         ship_ms = ShipmentMethod.objects
+        not_received = resp.user.orders.filter(payment_received=False)
         pay_mc = pay_mb = pay_mm = ""
         if resp.user.allow_crypto:
             pay_mc = pay_ms.filter(type="crypto")
@@ -45,7 +46,7 @@ def cart(resp):
                 pm_object = pay_ms.filter(name=pm_name)[0]
                 sm_object = ship_ms.filter(name=sm_name)[0]
                 p_total = (total * pm_object.multiplier) + sm_object.fee
-                if p_total > 0:
+                if p_total > 0 and not not_received:
                     payment = f"{pm_object.name}: {pm_object.description}"
                     create_order(
                             resp,
@@ -54,7 +55,7 @@ def cart(resp):
                             addrs_obj,
                             sm_object,
                         )
-                    return redirect("/cart/")
+                return redirect("/cart/")
         relay = {
             "cartitems": cartitems,
             "total": round(total, 2),
@@ -62,6 +63,7 @@ def cart(resp):
             "pay_ms": pay_mt,
             "ship_ms": ship_ms.all(),
             "addresses": addresses,
+            "not_received" : not_received,
         }
         return render(resp, "pages/cart.html", relay)
     else:

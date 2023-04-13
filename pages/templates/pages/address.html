@@ -88,7 +88,26 @@ Address page
                         <strong>Postcode:</strong><br>
                         ${{ address.postcode }}
                         <hr>
-                        <button type="submit" class="btn btn-light mt-3" name="{{ address.pk }}" value="{{ address.pk }}">Delete address</button>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-light mt-3"  data-bs-toggle="modal" data-bs-target="#deleteModal{{ address.pk }}">Delete address</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal{{ address.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ address.pk }}" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title text-dark" id="exampleModalLabel">Warning!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <p class="text-dark">This address will be removed from every order that you made, To ensure that the products are delivered to the right address, Do not delete this address!</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger" name="{{ address.pk }}" value="{{ address.pk }}">Delete</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
                       </div>
                     </div>

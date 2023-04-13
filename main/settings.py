@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from logging import debug
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-zv_%#ypp$0uq#k%gi57a_#103%i=f!m7qw!%ch8&i7$jqkyce(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [".milkyway.menu", "*"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -131,7 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "pages/static"
+STATIC_ROOT = BASE_DIR / "static/"
 #STATICFILES_DIRS = [BASE_DIR / "pages/static"]
 
 # Default primary key field type
@@ -148,18 +149,19 @@ LOGIN_REDIRECT_URL = '/'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-CSRF_TRUSTED_ORIGINS = [
-        "https://milkyway.menu",
-        "https://www.milkyway.menu",
-        "https://localhost",
-        "https://127.0.0.1",
-]
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = [
+            "https://milkyway.menu",
+            "https://www.milkyway.menu",
+            "https://localhost",
+            "https://127.0.0.1",
+    ]
 
-SECURE_HSTS_SECONDS = 30
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-CSRF_COOKIE_DOMAIN = ".milkyway.menu"
+    SECURE_HSTS_SECONDS = 30
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    CSRF_COOKIE_DOMAIN = ".milkyway.menu"
 
 # jet admin
 

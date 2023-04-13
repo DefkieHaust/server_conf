@@ -150,7 +150,8 @@ Orders page
                       <h3 class="mt-3">
                         Total: ${{ total }}
                       </h3>
-                      <button {% if total < 1 %}disabled{% endif %} type="submit" class="btn btn-light mt-3" name="placeorder" value="placeorder">Place Order</button>
+                      <button {% if total < 1 or not_received %}disabled{% endif %} type="submit" class="btn btn-light mt-3" name="placeorder" value="placeorder">Place Order</button><br>
+                      <small class="text-secondary">Note: You can't order again until you clear the previous order's payment.</small>
 
                     </form>
 

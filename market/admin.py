@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import *
 from accounts.models import *
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import mark_safe
+
 # Register your models here.
 
 
@@ -49,6 +51,7 @@ class InstaListFilter(admin.SimpleListFilter):
 
 
 class OrderAdmin(admin.ModelAdmin):
+    list_display = ["orders"]
     list_filter = (
         "user",
         InstaListFilter,
@@ -62,6 +65,15 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [
         OrderItemInline,
     ]
+
+    def orders(self, obj):
+        data = [
+            f"<strong>Insta:</strong> {obj.user.insta}",
+            f"<strong>Name:</strong> {obj.address.name}",
+            f"<strong>City:</strong> {obj.address.city}",
+            f"<strong>Postcode:</strong> {obj.address.postcode}",
+        ]
+        return mark_safe("<br>".join(data))
 
 
 class VariationInline(admin.TabularInline):
