@@ -1,13 +1,93 @@
 from django.contrib import admin
 from .models import *
-
+from accounts.models import *
+from django.utils.translation import gettext_lazy as _
 # Register your models here.
 
-admin.site.register(Product)
-admin.site.register(Variation)
-admin.site.register(CartItem)
-admin.site.register(OrderItem)
-admin.site.register(Order)
+
+class AddressInline(admin.TabularInline):
+    model = Address
+
+
+class CartItemInline(admin.TabularInline):
+    model = CartItem
+
+
+class UserAdmin(admin.ModelAdmin):
+    list_filter = (
+        "is_staff",
+        "insta",
+        "is_verified",
+        "allow_crypto",
+        "allow_bank",
+        "allow_cash",
+    )
+    inlines = [
+        AddressInline,
+        CartItemInline,
+    ]
+
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+
+
+class InstaListFilter(admin.SimpleListFilter):
+    title = _('Insta')
+    parameter_name = 'insta'
+
+    def lookups(self, request, model_admin):
+        insta_set = set()
+        for user in User.objects.all():
+            insta_set.add((user.insta, user.insta))
+        return sorted(insta_set)
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(user__insta=self.value())
+        return queryset
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_filter = (
+        "user",
+        InstaListFilter,
+        "order_id",
+        "payment_method",
+        "shipment_method",
+        "address",
+        "payment_received",
+        "shipped",
+    )
+    inlines = [
+        OrderItemInline,
+    ]
+
+
+class VariationInline(admin.TabularInline):
+    model = Variation
+
+
+class ProductAdmin(admin.ModelAdmin):
+    inlines = [
+        VariationInline,
+    ]
+
+
+class AddressAdmin(admin.ModelAdmin):
+    list_filter = (
+        "user",
+        InstaListFilter,
+    )
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
+admin.site.register(Product, ProductAdmin)
+#admin.site.register(Variation)
+#admin.site.register(CartItem)
+#admin.site.register(OrderItem)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(PaymentMethod)
 admin.site.register(ShipmentMethod)
-admin.site.register(Address)
+admin.site.register(Address, AddressAdmin)

@@ -25,6 +25,8 @@ from market import views as market_views
 from accounts import views as account_views
 
 urlpatterns = [
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    path('jet/', include('jet.urls', 'jet')),
     path("admin/", admin.site.urls),
     path("db/", include("data_browser.urls")),
     path("", page_views.home, name="home"),
