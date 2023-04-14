@@ -187,11 +187,13 @@ Orders page
                             Shipped
                           {% else %}
                             Payment confirmed<br>
-                            <p class="text-secondary">Note: we ship orders on Tuesday, Wednesday, Thursday.<br>
+                            <p class="text-secondary">Note: We ship orders on Tuesday, Wednesday, Thursday.<br>
                             Tracking number will appear in your email once shipped.</p>
                           {% endif %}
                         {% else %}
                           Waiting for payment
+                          <p class="text-secondary">Note: Once paid, we will confirm it on our end.<br>
+                          This may take a while.</p>
                         {% endif %}
                         <hr>
                         {% if order.shipping_date %}

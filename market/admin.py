@@ -67,13 +67,18 @@ class OrderAdmin(admin.ModelAdmin):
     ]
 
     def orders(self, obj):
-        data = [
-            f"<strong>Insta:</strong> {obj.user.insta}",
-            f"<strong>Name:</strong> {obj.address.name}",
-            f"<strong>City:</strong> {obj.address.city}",
-            f"<strong>Postcode:</strong> {obj.address.postcode}",
-        ]
-        return mark_safe("<br>".join(data))
+        try:
+            data = [
+                f"<strong>Insta:</strong> {obj.user.insta}",
+                f"<strong>Name:</strong> {obj.address.name}",
+                f"<strong>Address:</strong> {obj.address.street}",
+                f"<strong>City:</strong> {obj.address.city}",
+                f"<strong>Postcode:</strong> {obj.address.postcode}",
+                f"<strong>Email:</strong> {obj.user.email}",
+            ]
+            return mark_safe("<br>".join(data))
+        except Exception:
+            return "null"
 
 
 class VariationInline(admin.TabularInline):
