@@ -56,12 +56,16 @@ def cart(resp):
                             sm_object,
                         )
                 return redirect("/cart/")
+        if resp.user.local:
+            relay_ship_ms = ship_ms.all()
+        else:
+            relay_ship_ms = ship_ms.exclude(name="local")
         relay = {
             "cartitems": cartitems,
             "total": round(total, 2),
             "orders": orders,
             "pay_ms": pay_mt,
-            "ship_ms": ship_ms.all(),
+            "ship_ms": relay_ship_ms,
             "addresses": addresses,
             "not_received" : not_received,
         }

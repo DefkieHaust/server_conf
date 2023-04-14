@@ -11,6 +11,7 @@ class User(AbstractUser):
     allow_crypto = models.BooleanField(default=False)
     allow_bank = models.BooleanField(default=False)
     allow_cash = models.BooleanField(default=False)
+    local = models.BooleanField(default=False)
     objects = UserManager()
 
 

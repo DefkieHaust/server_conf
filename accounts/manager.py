@@ -11,6 +11,7 @@ class UserManager(BaseUserManager):
             allow_crypto=False,
             allow_cash=False,
             allow_bank=False,
+            local=False,
             **extra_fields
             ):
         if not insta:
@@ -21,6 +22,7 @@ class UserManager(BaseUserManager):
                 allow_crypto=allow_crypto,
                 allow_bank=allow_bank,
                 allow_cash=allow_cash,
+                local=local,
                 **extra_fields
             )
         user.set_password(password)
@@ -35,5 +37,6 @@ class UserManager(BaseUserManager):
                 password=password,
                 insta="admin",
                 is_verified=True,
+                local=False,
                 **extra_fields
             )
