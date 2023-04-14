@@ -75,6 +75,7 @@ class OrderAdmin(admin.ModelAdmin):
                 f"<strong>City:</strong> {obj.address.city}",
                 f"<strong>Postcode:</strong> {obj.address.postcode}",
                 f"<strong>Email:</strong> {obj.user.email}",
+                f"<strong>Payment Method:</strong> {obj.payment_method}",
             ]
             return mark_safe("<br>".join(data))
         except Exception:
@@ -101,9 +102,9 @@ class AddressAdmin(admin.ModelAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Product, ProductAdmin)
-#admin.site.register(Variation)
-#admin.site.register(CartItem)
-#admin.site.register(OrderItem)
+admin.site.register(Variation)
+admin.site.register(CartItem)
+admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(PaymentMethod)
 admin.site.register(ShipmentMethod)
