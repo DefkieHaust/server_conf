@@ -7,6 +7,13 @@ from django.utils.html import mark_safe
 # Register your models here.
 
 
+def check_shipped(modeladmin, request, queryset):
+    queryset.update(shipped=True)
+
+def check_payment_received(modeladmin, request, queryset):
+    queryset.update(payment_received=True)
+
+
 class AddressInline(admin.TabularInline):
     model = Address
 
@@ -51,7 +58,11 @@ class InstaListFilter(admin.SimpleListFilter):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["orders"]
+    list_display = [
+        "orders",
+        "payment_received",
+        "shipped",
+    ]
     list_filter = (
         "user",
         InstaListFilter,
@@ -64,6 +75,10 @@ class OrderAdmin(admin.ModelAdmin):
     )
     inlines = [
         OrderItemInline,
+    ]
+    actions = [
+        check_payment_received,
+        check_shipped,
     ]
 
     def orders(self, obj):
