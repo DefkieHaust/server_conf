@@ -30,6 +30,7 @@ class UserAdmin(admin.ModelAdmin):
         "allow_crypto",
         "allow_bank",
         "allow_cash",
+        "local",
     )
     inlines = [
         AddressInline,

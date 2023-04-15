@@ -97,6 +97,7 @@ class Order(models.Model):
             )
     order_date = models.DateTimeField(auto_now_add=True)
     shipping_date = models.DateTimeField(null=True, blank=True)
+    tracking_number = models.CharField(max_length=200, null=True, blank=True)
     payment_received = models.BooleanField(default=False)
     shipped = models.BooleanField(default=False)
 

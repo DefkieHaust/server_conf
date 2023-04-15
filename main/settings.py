@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zv_%#ypp$0uq#k%gi57a_#103%i=f!m7qw!%ch8&i7$jqkyce("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -157,11 +157,9 @@ if not DEBUG:
             "https://127.0.0.1",
     ]
 
-    SECURE_HSTS_SECONDS = 30
-    SECURE_HSTS_PRELOAD = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    CSRF_COOKIE_DOMAIN = ".milkyway.menu"
+
+USE_THOUSAND_SEPARATOR = True
 
 # jet admin
 
