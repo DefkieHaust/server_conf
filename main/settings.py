@@ -195,5 +195,10 @@ JET_THEMES = [
         'theme': 'light-gray',
         'color': '#222',
         'title': 'Light Gray'
+    },
+    {
+        'theme': 'default-dark',
+        'color': '#444',
+        'title': 'Default Darkmode'
     }
 ]
