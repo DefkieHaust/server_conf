@@ -5,8 +5,8 @@ from accounts.models import User
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(min_length=3, max_length=50)
-    insta = forms.CharField(label="Instagram Username",min_length=3, max_length=20)
+    email = forms.EmailField(label="Email* (Optional)", min_length=3, max_length=50, required=False)
+    insta = forms.CharField(label="Instagram Username", min_length=3, max_length=20)
 
     class Meta:
         model = User
