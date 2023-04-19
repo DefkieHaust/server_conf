@@ -3,6 +3,8 @@ from .models import *
 from accounts.models import *
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import mark_safe
+from jet.filters import DateRangeFilter
+
 
 # Register your models here.
 
@@ -73,6 +75,7 @@ class OrderAdmin(admin.ModelAdmin):
         "address",
         "payment_received",
         "shipped",
+        ("order_date", DateRangeFilter)
     )
     inlines = [
         OrderItemInline,

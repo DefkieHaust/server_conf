@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rangefilter',
     "crispy_forms",
     "crispy_bootstrap5",
     "mathfilters",

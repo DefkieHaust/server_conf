@@ -46,6 +46,7 @@ def cart(resp):
                 pm_object = pay_ms.filter(name=pm_name)[0]
                 sm_object = ship_ms.filter(name=sm_name)[0]
                 p_total = (total * pm_object.multiplier) + sm_object.fee
+                detail = resp.POST.get("detail") or None
                 if p_total > 0 and not not_received:
                     payment = f"{pm_object.name}: {pm_object.description}"
                     create_order(
@@ -54,6 +55,7 @@ def cart(resp):
                             payment,
                             addrs_obj,
                             sm_object,
+                            detail,
                         )
                 return redirect("/cart/")
         if resp.user.local:
@@ -67,7 +69,7 @@ def cart(resp):
             "pay_ms": pay_mt,
             "ship_ms": relay_ship_ms,
             "addresses": addresses,
-            "not_received" : not_received,
+            "not_received": not_received,
         }
         return render(resp, "pages/cart.html", relay)
     else:

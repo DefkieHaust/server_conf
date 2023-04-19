@@ -82,6 +82,7 @@ class Order(models.Model):
             )
     order_id = models.CharField(max_length=36, blank=True)
     payment_method = models.CharField(max_length=1000)
+    pm_detail = models.CharField(max_length=50, null=True, blank=True)
     shipment_method = models.ForeignKey(
                 ShipmentMethod,
                 on_delete=models.SET_NULL,
@@ -157,13 +158,15 @@ def update_cart(request, variation, amount):
         new_cartitem.save()
 
 
-def create_order(request, total,  payment, address, shipment):
+def create_order(request, total,  payment, address, shipment, detail=None):
     new_order = Order()
     new_order.user = request.user
     new_order.payment_method = payment
     new_order.pay_amount = total
     new_order.address = address
     new_order.shipment_method = shipment
+    if detail:
+        new_order.pm_detail = detail
     new_order.save()
     for item in request.user.cart.all():
         order_item = OrderItem()

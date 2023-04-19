@@ -124,6 +124,11 @@ Orders page
 
                       </select>
 
+                  <label for="detail" class="form-label"><span class="text-light h6">Payment Details: (Optional)</span></label>
+                  <input type="text" class="form-control form-control-lg border-dark" id="detail" name="detail">
+                  <small class="text-secondary">Note: Please provide your payment method name/details to make it quicker for us to process your payment.</small><br>
+
+
                       <label for="shipment" class="form-label"><span class="text-light h6">Shipment:</span></label>
                       <select class="form-control form-control-lg border-dark form-select" id="shipment" name="shipment_method" required>
                         <option selected disabled value="">Choose...</option>
@@ -197,7 +202,7 @@ Orders page
                               <strong>The tracking number will appear here once your order is shipped.</strong></small>
                           {% endif %}
                         {% else %}
-                          Waiting for payment
+                          Waiting for payment<br>
                           <small class="text-secondary">Note: Once paid, we will confirm it on our end.<br>
                           This may take a while.</small>
                         {% endif %}
@@ -210,6 +215,11 @@ Orders page
                         <strong>Payment Method:</strong><br>
                         {{ order.payment_method }}
                         <hr>
+                        {% if order.pm_detail %} 
+                        <strong>Payment Details:</strong><br>
+                        {{ order.pm_detail }}
+                        <hr>
+                        {% endif %}
                         <strong>Pay Amount:</strong><br>
                         ${{ order.pay_amount }}
                         <hr>
