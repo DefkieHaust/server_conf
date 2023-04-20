@@ -147,8 +147,12 @@ def after_update(sender, instance, *args, **kwargs):
 
 @receiver(pre_save, sender=Order)
 def before_update(sender, instance, *args, **kwargs):
+    if instance.pk:
+        record = Order.objects.get(order_id=instance.order_id)
+    else:
+        return
     current_day = int(time() / 86400)
-    if not instance.pk:
+    if instance.payment_received and not record.payment_received:
         if (today_record := DailyProfit.objects.filter(days_since_epoch=current_day)):
             today_record[0].amount += instance.pay_amount
             today_record[0].last_updated = timezone.now()
