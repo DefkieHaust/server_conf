@@ -62,6 +62,8 @@ def cart(resp):
             relay_ship_ms = ship_ms.all()
         else:
             relay_ship_ms = ship_ms.exclude(name="local")
+        bank_pm = PaymentMethod.objects.filter(type="bank")
+        print(bank_pm)
         relay = {
             "cartitems": cartitems,
             "total": round(total, 2),
@@ -70,6 +72,7 @@ def cart(resp):
             "ship_ms": relay_ship_ms,
             "addresses": addresses,
             "not_received": not_received,
+            "banks": bank_pm,
         }
         return render(resp, "pages/cart.html", relay)
     else:
