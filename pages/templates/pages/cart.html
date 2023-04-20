@@ -124,9 +124,11 @@ Orders page
 
                       </select>
 
-                  <label for="detail" class="form-label"><span class="text-light h6">Payment Details: (Optional)</span></label>
+                    {% if user.allow_bank %}
+                  <label for="detail" class="form-label"><span class="text-light h6">Bank Details: (Optional)</span></label>
                   <input type="text" class="form-control form-control-lg border-dark" id="detail" name="detail">
-                  <small class="text-secondary">Note: Please provide your payment method name/details to make it quicker for us to process your payment.</small><br>
+                  <small class="text-secondary">Note: Please provide the name attached to the bank account you are sending from to make it quicker for us to process your payment.</small><br>
+                    {% endif %}
 
 
                       <label for="shipment" class="form-label"><span class="text-light h6">Shipment:</span></label>
