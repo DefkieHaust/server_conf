@@ -1,10 +1,10 @@
-from enum import unique
 from uuid import uuid4
 from django.utils import timezone
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from accounts.models import Address, User
+from time import time
 
 # Create your models here.
 
@@ -129,11 +129,38 @@ class OrderItem(models.Model):
         return f"{self.order} > {self.item}"
 
 
+class DailyProfit(models.Model):
+    amount = models.FloatField()
+    days_since_epoch = models.IntegerField()
+    last_updated = models.DateTimeField()
+
+    def __str__(self):
+        return str(self.last_updated.date())
+
+
 @receiver(post_save, sender=Order)
-def on_complete(sender, instance, *args, **kwargs):
+def after_update(sender, instance, *args, **kwargs):
     if instance.shipped and not instance.shipping_date:
         instance.shipping_date = timezone.now()
         instance.save()
+
+
+@receiver(pre_save, sender=Order)
+def before_update(sender, instance, *args, **kwargs):
+    current_day = int(time() / 86400)
+    if not instance.pk:
+        if (today_record := DailyProfit.objects.filter(days_since_epoch=current_day)):
+            today_record[0].amount += instance.pay_amount
+            today_record[0].last_updated = timezone.now()
+            today_record[0].save()
+        else:
+            new_day = DailyProfit()
+            new_day.amount = instance.pay_amount
+            new_day.days_since_epoch = current_day
+            new_day.last_updated = timezone.now()
+            new_day.save()
+
+
 
 @receiver(pre_save, sender=Product)
 def delete_old_image(sender, instance, *args, **kwargs):
