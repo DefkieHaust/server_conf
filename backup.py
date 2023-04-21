@@ -6,4 +6,4 @@ while True:
     system("cp ./db.sqlite3 ./db.sqlite3.bak")
     system("git pull")
     print("Backed up database and synced repo at", datetime.now())
-    sleep(10)
+    sleep(3600)
