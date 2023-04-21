@@ -3,7 +3,8 @@ from django.utils import timezone
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
-from accounts.models import Address, User
+from accounts.models import User
+from authenticators.models import Address
 from time import time
 
 # Create your models here.

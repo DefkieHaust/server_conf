@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 from pages import views as page_views
 from authenticators import views as user_views
 from market import views as market_views
-from accounts import views as account_views
+
 
 urlpatterns = [
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
@@ -35,8 +35,10 @@ urlpatterns = [
     path("logout/", user_views.logout_view, name="logout"),
     path("market/", market_views.market, name="market"),
     path("market/<int:id>", market_views.product, name="product"),
-    path("cart/", page_views.cart, name="cart"),
-    path("address/", account_views.address, name="address"),
+    path("cart/", market_views.cart, name="cart"),
+    path("address/", user_views.address, name="address"),
+    path("edit_profile/", user_views.edit_profile, name="edit_profile"),
+    path("change_password/", user_views.change_password, name="change_password"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
