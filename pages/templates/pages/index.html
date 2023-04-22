@@ -48,9 +48,6 @@ Homepage
 
           <h1 class="d-block text-center">Welcome <strong>{{ user.username }}</strong></h1>
 
-          <form method="POST" id="cart-form" action="#">
-            {% csrf_token %}
-
             <div class="hr-1 mt-4"></div>
 
             <h2 class="mt-3">Orders</h2>
@@ -172,7 +169,6 @@ Homepage
 
             <div class="hr-1 mt-4"></div>
 
-          </form>
             <h2 class="mt-3">User</h2>
             <hr>
             
