@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 def home(resp):
-    if resp.user.is_verified:
+    if resp.user.is_authenticated:
         orders = resp.user.orders.all()
         relay = {
             "orders": orders,
