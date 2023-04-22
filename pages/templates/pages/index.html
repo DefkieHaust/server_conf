@@ -40,7 +40,7 @@ Homepage
 
 {% block main %}
   <main>
-    {% if user.is_verified %}
+    {% if user.is_authenticated and user.is_verified %}
     <div class="container">
       <div class="row d-flex justify-content-center py-vh-3 pb-0">
 
