@@ -64,13 +64,13 @@ def cart(resp):
         ship_ms = ShipmentMethod.objects
         not_received = resp.user.orders.filter(payment_received=False)
         pay_mc = pay_mb = pay_mm = ""
-        if resp.user.allow_crypto:
-            pay_mc = pay_ms.filter(type="crypto")
         if resp.user.allow_bank:
             pay_mb = pay_ms.filter(type="bank")
         if resp.user.allow_cash:
             pay_mm = pay_ms.filter(type="cash")
-        pay_mt = list(chain(pay_mc, pay_mb, pay_mm))
+        if resp.user.allow_crypto:
+            pay_mc = pay_ms.filter(type="crypto")
+        pay_mt = list(chain(pay_mb, pay_mc, pay_mm))
         if resp.method == "POST":
             if resp.POST.get("rm_s"):
                 for i in resp.POST:
