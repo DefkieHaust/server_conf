@@ -164,6 +164,9 @@ def before_update(sender, instance, *args, **kwargs):
             new_day.days_since_epoch = current_day
             new_day.last_updated = timezone.now()
             new_day.save()
+        for item in instance.items.all():
+            item.item.stock -= item.amount
+            item.item.save()
 
 
 
