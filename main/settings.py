@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     "accounts",
     "authenticators",
     "market",
+    'django_otp',
+    'django_otp.plugins.otp_totp',
 ]
 
 MIDDLEWARE = [

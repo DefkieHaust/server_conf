@@ -21,7 +21,7 @@ Homepage
   .hr-1 {
     background-color: #fff;
     height: 2px;
-    width: %100;
+    width: 100%;
   }
   .acc-1 {
     background-color: #444;
@@ -173,6 +173,7 @@ Homepage
             <hr>
             
             <div>
+              <a href="/totp/setup/" class="nowrap link-info link-underline-opacity-0 link-underline-opacity-100-hover d-block">> Configure Password Recovery with TOTP.</a>
               <a href="/address/" class="nowrap link-info link-underline-opacity-0 link-underline-opacity-100-hover d-block">> Manage your addresses.</a>
               <a href="/edit_profile/" class="nowrap link-info link-underline-opacity-0 link-underline-opacity-100-hover d-block">> Edit your profile.</a>
               <a href="/change_password/" class="nowrap link-info link-underline-opacity-0 link-underline-opacity-100-hover d-block">> Change your password.</a>
@@ -221,5 +222,27 @@ Homepage
 
   <!-- <div class="py-vh-5"> </div> -->
 
-  </main>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Welcome Modal</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Welcome to our website!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+
+
+
 {% endblock main %}

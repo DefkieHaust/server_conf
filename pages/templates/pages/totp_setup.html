@@ -1,0 +1,54 @@
+{% extends "pages/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+The Milky Way | TOTP
+{% endblock title %}
+
+{% block desc %}
+TOTP setup page
+{% endblock desc %}
+
+{% block head-extra %}
+<style>
+  .qr-code {
+    max-width: 200px;
+    height: auto;
+  }
+</style>
+{% endblock head-extra %}
+
+{% block main %}
+
+<main>
+    <div class="container mb-5">
+      <div class="row d-flex justify-content-center py-vh-3 pb-0">
+
+        <div class="col-12">
+
+          <h2>Setup TOTP Authentication</h2>
+
+          <p>Scan the QR code below or manually enter the secret key into your TOTP app: 
+            <br>e.g Google authenticator, Authy etc.</p>
+          
+          <img src="{{ provisioning_uri }}" alt="TOTP QR Code" class="qr-code">
+          
+          <p>Secret Key: {{ secret_key }}</p>
+          
+          <p>Once you have set up TOTP, enter the generated code in the app:</p>
+          
+          <form method="post" action="{% url 'totp_verify' %}">
+              {% csrf_token %}
+              <input type="number" name="totp_code" required>
+              <button type="submit">Verify</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+</main>
+
+{% endblock main %}

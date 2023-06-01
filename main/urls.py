@@ -39,6 +39,11 @@ urlpatterns = [
     path("address/", user_views.address, name="address"),
     path("edit_profile/", user_views.edit_profile, name="edit_profile"),
     path("change_password/", user_views.change_password, name="change_password"),
+    path('totp/setup/', user_views.totp_setup, name='totp_setup'),
+    path('totp/verify/', user_views.totp_verify, name='totp_verify'),
+    path('password-recovery/', user_views.password_recovery, name='password_recovery'),
+    path('password-reset/confirm/<uidb64>/<token>/', user_views.custom_password_reset,
+         name='password_reset_confirm'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

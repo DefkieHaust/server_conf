@@ -14,26 +14,10 @@ password update page
 
 {% block head-extra %}
 <style>
-  .btn-danger {
-    color: #fff;
-    background-color: #ba110c;
-  }
   .hr-1 {
     background-color: #fff;
     height: 2px;
     width: 100%;
-  }
-  .acc-1 {
-    background-color: #444;
-    color: #fff;
-  }
-  .acc-2 {
-    background-color: #333;
-    color: #fff;
-  }
-  .accb-1 {
-    background-color: #222;
-    color: #fff;
   }
 </style>
 {% endblock head-extra %}
@@ -46,15 +30,12 @@ password update page
 
         <div class="col-12">
 
-          <form method="POST" id="address-form" action="#">
-            {% csrf_token %}
 
-            <h1>Change Password</h1>
+            <h1>TOTP Verification Failed</h1>
             <hr>
-            {{ passwordform | crispy }}
-            <button type="submit" class="btn btn-light mt-3" name="address" value="address">Update</button>
-
-          </form>
+            <p>The entered TOTP code is invalid or verification failed.
+              <br><a href="/totp/setup" class="nowrap link-info link-underline-opacity-0 link-underline-opacity-100-hover">Try again</a>
+            </p>
 
         </div>
       </div>

@@ -1,0 +1,43 @@
+{% extends "pages/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+The Milky Way | Password Reset
+{% endblock title %}
+
+{% block desc %}
+Password reset page
+{% endblock desc %}
+
+{% block head-extra %}
+<style>
+  .hr-1 {
+    background-color: #fff;
+    height: 2px;
+    width: 100%;
+  }
+</style>
+{% endblock head-extra %}
+
+{% block main %}
+
+<main>
+    <div class="container">
+      <div class="row d-flex justify-content-center py-vh-3 pb-0">
+
+        <div class="col-12">
+
+
+            <h1>Invalid Reset Link</h1>
+            <hr>
+            <p>Return to <a href="/" class="nowrap link-info link-underline-opacity-0 link-underline-opacity-100-hover">HomePage</a></p>
+
+        </div>
+      </div>
+    </div>
+</main>
+
+{% endblock main %}
