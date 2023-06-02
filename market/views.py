@@ -104,6 +104,10 @@ def cart(resp):
         else:
             relay_ship_ms = ship_ms.exclude(name="local")
         bank_pm = PaymentMethod.objects.filter(type="bank")
+        try:
+            btc = pay_ms.get(name="BTC")
+        except Exception:
+            pass
         relay = {
             "cartitems": cartitems,
             "total": round(total, 2),
@@ -112,6 +116,7 @@ def cart(resp):
             "addresses": addresses,
             "not_received": not_received,
             "banks": bank_pm,
+            "btc": btc,
         }
         return render(resp, "pages/cart.html", relay)
     else:
