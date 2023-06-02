@@ -105,7 +105,7 @@ def cart(resp):
             relay_ship_ms = ship_ms.exclude(name="local")
         bank_pm = PaymentMethod.objects.filter(type="bank")
         try:
-            btc = pay_ms.get(name="BTC")
+            btc = pay_ms.get(name="BTC").description
         except Exception:
             pass
         relay = {
