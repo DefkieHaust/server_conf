@@ -70,7 +70,7 @@ def cart(resp):
             pay_mm = pay_ms.filter(type="cash")
         if resp.user.allow_crypto:
             pay_mc = pay_ms.filter(type="crypto")
-        pay_mt = list(chain(pay_mb, pay_mc, pay_mm))
+        pay_mt = list(chain(pay_mc, pay_mb, pay_mm))
         if resp.method == "POST":
             if resp.POST.get("rm_s"):
                 for i in resp.POST:

@@ -57,7 +57,7 @@ class CartItem(models.Model):
 
 
 class PaymentMethod(models.Model):
-    name = models.CharField(unique=True, max_length=20)
+    name = models.CharField(unique=True, max_length=200)
     description = models.CharField(max_length=400)
     multiplier = models.FloatField(default=1.0, blank=True)
     type = models.CharField(max_length=20, choices=payment_opts)

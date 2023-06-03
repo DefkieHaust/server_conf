@@ -7,8 +7,8 @@
  * General
  */
 
-$background-color: #212121 !default;
-$text-color: #fff !default;
+$background-color: #ecf2f6 !default;
+$text-color: #6f7e95 !default;
 $dim-text-color: #d0dbe6 !default;
 $error-text-color: #c14747 !default;
 
@@ -44,21 +44,21 @@ $sidebar-hover-action-color: #639af5 !default;
 $sidebar-title-action-color: #47bac1 !default;
 $sidebar-hover-title-action-item-color: #639af5 !default;
 
-$sidebar-text-color: #fff !default;
-$sidebar-icon-color: #fff !default;
+$sidebar-text-color: #6f7e95 !default;
+$sidebar-icon-color: #6f7e95 !default;
 $sidebar-link-color: #c0cad8 !default;
 $sidebar-hover-link-color: #fff !default;
 $sidebar-hover-background-color: #2b3647 !default;
 
-$sidebar-popup-search-input-background-color: #758392 !default;
-$sidebar-popup-search-input-text-color: #fff !default;
-$sidebar-popup-search-input-placeholder-color: transparentize(#fff, 0.5) !default;
+$sidebar-popup-search-input-background-color: #d0dbe6 !default;
+$sidebar-popup-search-input-text-color: #6f7e95 !default;
+$sidebar-popup-search-input-placeholder-color: transparentize(#6f7e95, 0.5) !default;
 
-$sidebar-popup-background-color: #212121 !default;
-$sidebar-popup-text-color: #fff !default;
+$sidebar-popup-background-color: #ecf2f6 !default;
+$sidebar-popup-text-color: #6f7e95 !default;
 $sidebar-popup-overlay-color: #000 !default;
 
-$sidebar-popup-link-text-color: #fff !default;
+$sidebar-popup-link-text-color: #6f7e95 !default;
 $sidebar-popup-hover-link-color: #fff !default;
 $sidebar-popup-hover-link-background-color: #639af5 !default;
 
@@ -68,7 +68,7 @@ $sidebar-popup-hover-link-background-color: #639af5 !default;
 
 $top-height: 32px !default;
 
-$top-text-color: #fff !default;
+$top-text-color: #6f7e95 !default;
 $top-separator-color: #c0d4e8 !default;
 $top-link-color: #c0d4e8 !default;
 $top-hover-link-color: #639af5 !default;
@@ -89,14 +89,14 @@ $top-dropdown-selected-color: #e5e2a5 !default;
  * Content
  */
 
-$content-background-color: #151515 !default;
-$content-contrast-background-color: #121212 !default; //inline list bg
+$content-background-color: #fff !default;
+$content-contrast-background-color: #f6fafc !default; //inline list bg
 $content-contrast2-background-color: #59677e !default; //table header
-$content-contrast3-background-color: #758392 !default; //delete collapsable
+$content-contrast3-background-color: #d0dbe6 !default; //delete collapsable
 $content-selected-background-color: #fffcc0 !default;
 $content-contrast2-text-color: #fff !default;
-$content-border-color: #1d1d1d !default; //row bottom
-$content-border2-color: #758392 !default; //table bottom
+$content-border-color: #f4f4f4 !default; //row bottom
+$content-border2-color: #d0dbe6 !default; //table bottom
 $content-selected-border-color: #e5e2a5 !default;
 
 $tab-selected-border-color: #639af5 !default;
@@ -106,10 +106,10 @@ $tab-error-border-color: #c14747 !default;
  * Buttons
  */
 
-$button-background-color: #758392 !default;
+$button-background-color: #d0dbe6 !default;
 $button-hover-background-color: #639af5 !default;
 $button-active-background-color: #6f7e95 !default;
-$button-text-color: #fff !default;
+$button-text-color: #6f7e95 !default;
 $button-hover-text-color: #fff !default;
 $button-active-text-color: #fff !default;
 
@@ -119,30 +119,30 @@ $primary-button-text-color: #fff !default;
 $danger-button-background-color: #c14747 !default;
 $danger-button-text-color: #fff !default;
 
-$background-button-background-color: #151515 !default;
-$background-button-text-color: #fff !default;
+$background-button-background-color: #fff !default;
+$background-button-text-color: #6f7e95 !default;
 
 /*
  * Inputs
  */
 
 $input-height: 32px !default;
-$input-background-color: #151515 !default;
-$input-contrast-background-color: #758392 !default;
-$input-border-color: #212121 !default;
+$input-background-color: #fff !default;
+$input-contrast-background-color: #d0dbe6 !default;
+$input-border-color: #ecf2f6 !default;
 $input-hover-background-color: #639af5 !default;
 $input-icon-color: #47bac1 !default;
-$input-text-color: #fff !default;
-$input-contrast-text-color: #fff !default;
+$input-text-color: #6f7e95 !default;
+$input-contrast-text-color: #6f7e95 !default;
 $input-hover-text-color: #fff !default;
 $input-selected-text-color: #47bac1 !default;
 $input-disabled-text-color: #d0dbe6 !default;
 $input-placeholder-color: #d0dbe6 !default;
 $input-shadow-color: transparentize(#47bac1, 0.25) !default;
 
-$background-input-background-color: #151515 !default;
-$background-input-border-color: #151515 !default;
-$background-input-text-color: #fff !default;
+$background-input-background-color: #fff !default;
+$background-input-border-color: #fff !default;
+$background-input-text-color: #6f7e95 !default;
 
 /*
  * Messages
@@ -160,21 +160,21 @@ $success-text-color: #82b982 !default;
  */
 
 $login-background-color: #354052 !default;
-$login-title-text-color: #fff !default;
+$login-title-text-color: #6f7e95 !default;
 $login-title-contrast-text-color: #fff !default;
 $login-header-background-color: #59677e !default;
 $login-header-text-color: #fff !default;
-$login-content-background-color: #151515 !default;
+$login-content-background-color: #fff !default;
 
 /*
  * jQuery UI
  */
 
-$jquery-ui-buttonpane-background: #212121 !default;
+$jquery-ui-buttonpane-background: #ecf2f6 !default;
 
-$jquery-ui-state-default-background-color: #151515 !default;
-$jquery-ui-state-default-border-color: #212121 !default;
-$jquery-ui-state-default-text-color: #fff !default;
+$jquery-ui-state-default-background-color: #fff !default;
+$jquery-ui-state-default-border-color: #ecf2f6 !default;
+$jquery-ui-state-default-text-color: #6f7e95 !default;
 
 $jquery-ui-state-hover-background-color: #639af5 !default;
 $jquery-ui-state-hover-border-color: #639af5 !default;
@@ -184,7 +184,7 @@ $jquery-ui-state-active-background-color: #47bac1 !default;
 $jquery-ui-state-active-border-color: #47bac1 !default;
 $jquery-ui-state-active-text-color: #fff !default;
 
-$jquery-ui-state-highlight-background-color: #151515 !default;
+$jquery-ui-state-highlight-background-color: #fff !default;
 $jquery-ui-state-highlight-border-color: #639af5 !default;
 $jquery-ui-state-highlight-text-color: #639af5 !default;
 
