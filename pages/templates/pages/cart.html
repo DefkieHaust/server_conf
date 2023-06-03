@@ -39,6 +39,12 @@ Orders page
     background-color: #222;
     color: #fff;
   }
+  .carousel-control-next-icon {
+    filter: invert(100%);
+  }
+  .carousel-control-prev-icon {
+    filter: invert(100%);
+  }
 </style>
 {% endblock head-extra %}
 
@@ -177,7 +183,7 @@ Orders page
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <p class="text-dark">Once you confirm your order you are confirming that you will send payment within 2 hours from confirmation. If you don't send the payment within that time frame  you will be removed from our instagram and website permanently.
+                                <p class="text-dark">Once you confirm your order you are confirming that you will send payment within 5 hours from confirmation. If you don't send the payment within that time frame  you will be removed from our instagram and website permanently.
                                 <br>Note: To avoid potentially losing access simply only place an order when you are ready to pay for it.
                                 <br><br>Thank You</p>
                               </div>
@@ -215,16 +221,21 @@ Orders page
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="mModalLabel" style="color: black;"><strong>15% OFF ON CTYPTO!</strong></h1>
+        <h1 class="modal-title fs-5" id="mModalLabel" style="color: black;"><strong>15% OFF ON CRYPTO!</strong></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="color: black;">
 
         <p>
-          To pay in crypto is simple lock in that 15% discount by creating an account on <a href="www.easycrypto.com">EasyCrypto</a>.
+          To pay in crypto is simple lock in that 15% discount by creating an account on <a href="https://easycrypto.com/nz">EasyCrypto</a>.
           <br>Here are the 4 easy steps:
         </p>
         
+        <p>
+          (Copy and paste this crypto wallet address below word for word into the box shown on step 3 on the easy crypto website) 🔽
+          <br><br>{{ btc }}
+        </p>
+
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
           <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -256,10 +267,6 @@ Orders page
           </button>
         </div>
 
-        <p>
-          (Copy and paste this crypto wallet address below word for word into the box shown on step 3 on the easy crypto website) 🔽
-          <br><br>{{ btc }}
-        </p>
 
       </div>
       <div class="modal-footer">
