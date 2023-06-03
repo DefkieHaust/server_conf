@@ -72,7 +72,8 @@ Homepage
                       <div class="accordion-body accb-1">
                         <strong>Order Id:</strong><br>
                         {{ order.order_id }}
-                        <hr>                      <strong>Order Status:</strong><br>
+                        <hr>
+                        <strong>Order Status:</strong><br>
                         {% if order.payment_received %}
                           {% if order.shipped %}
                             Shipped<br>
@@ -93,7 +94,9 @@ Homepage
                           This may take a while.</small>
                         {% endif %}
                             <br>
-                          <small class="text-secondary">If the situation arises and your bank asks what the payment is for, simply tell them that you purchased a vape battery/empty carts for ejiuce products from us, If they ask for the company name then say NZVapeSupply.<br>
+                          <small class="text-secondary">If the situation arises and your bank asks what the payment is for, simply tell them that you purchased a vape battery/empty carts for ejiuce products from us, If they ask for the company name then say NZVapeSupply.
+                            <br>
+                            </small>
                         <hr>
                         {% if order.shipping_date %}
                           <strong>Shipping Date:</strong><br>
