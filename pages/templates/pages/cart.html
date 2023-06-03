@@ -129,7 +129,7 @@ Orders page
                         <option selected disabled value="">Choose...</option>
                         
                         {% for pay_m in pay_ms %}
-                        <option>{{ pay_m.name }}</option>
+                        <option value="{{ pay_m.name }}/{{ pay_m.multiplier }}">{{ pay_m.name }}</option>
                         {% endfor %}
 
                       </select>
@@ -148,7 +148,7 @@ Orders page
                         <option selected disabled value="">Choose...</option>
                         
                         {% for ship_m in ship_ms %}
-                        <option value="{{ ship_m.name }}">{{ ship_m.name }} (${{ ship_m.fee }})</option>
+                        <option value="{{ ship_m.name }}/{{ ship_m.fee }}">{{ ship_m.name }} (${{ ship_m.fee }})</option>
                         {% endfor %}
 
                       </select>
@@ -167,7 +167,7 @@ Orders page
                       </p>
 
                       <h3 class="mt-3">
-                        Total: ${{ total }}
+                        Total: $<span id="total_d">{{ total }}</span> <small class="text-secondary"><s id="total"></s></small>
                       </h3>
                         <!-- Button trigger modal -->
                       <button {% if total < 1 or not_received %}disabled{% endif %} type="button" class="btn btn-light mt-3" data-bs-toggle="modal" data-bs-target="#middleware">Place Order</button><br>
@@ -321,7 +321,45 @@ paymentSelect.addEventListener('change', () => {
 });
 {% endif %}
 
+let payment = document.getElementById("payment")
+let shipment = document.getElementById("shipment")
+let total = document.getElementById("total")
+let total_d = document.getElementById("total_d")
 
+function totalCalc() {
+  let base_total = + "{{ total }}"
+  let multi = payment.value.split("/")[1]
+  let fee = shipment.value.split("/")[1]
+
+  console.log(multi)
+  console.log(fee)
+
+  if (fee === undefined && multi === undefined) {
+    total_d.innerHTML = base_total
+    total.innerHTML = ""
+  } else if (fee === undefined) {
+    total_d.innerHTML = (base_total * multi).toFixed(2)
+    if (multi < 1) {  
+      total.innerHTML = `$${base_total}`
+    } else {
+      total.innerHTML = ""
+    }
+  } else if (multi === undefined) {
+    total_d.innerHTML = base_total + + fee
+    total.innerHTML = ""   
+  } else {
+    base_total += + fee
+    total_d.innerHTML = (base_total * multi).toFixed(2)
+    if (multi < 1) {  
+      total.innerHTML = `$${base_total}`
+    } else {
+      total.innerHTML = ""
+    }
+  }
+}
+
+payment.addEventListener("change", totalCalc)
+shipment.addEventListener("change", totalCalc)
 
 </script>
 

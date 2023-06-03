@@ -79,8 +79,8 @@ def cart(resp):
                         except: pass
                 return redirect("/cart/")
             elif resp.POST.get("placeorder"):
-                pm_name = resp.POST.get("payment_method")
-                sm_name = resp.POST.get("shipment_method")
+                pm_name = resp.POST.get("payment_method").split("/")[0]
+                sm_name = resp.POST.get("shipment_method").split("/")[0]
                 addrs = resp.POST.get("address")
                 addrs_obj = resp.user.addresses.filter(pk=int(addrs))[0]
                 pm_object = pay_ms.filter(name=pm_name)[0]
