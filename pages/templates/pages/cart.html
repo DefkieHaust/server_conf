@@ -327,7 +327,7 @@ let total = document.getElementById("total")
 let total_d = document.getElementById("total_d")
 
 function totalCalc() {
-  let base_total = + "{{ total }}"
+  let base_total = + "{{ total }}".replace(/,/g, "")
   let multi = payment.value.split("/")[1]
   let fee = shipment.value.split("/")[1]
 
@@ -335,23 +335,23 @@ function totalCalc() {
   console.log(fee)
 
   if (fee === undefined && multi === undefined) {
-    total_d.innerHTML = base_total
+    total_d.innerHTML = base_total.toLocaleString()
     total.innerHTML = ""
   } else if (fee === undefined) {
-    total_d.innerHTML = (base_total * multi).toFixed(2)
+    total_d.innerHTML = (base_total * multi).toLocaleString()
     if (multi < 1) {  
-      total.innerHTML = `$${base_total}`
+      total.innerHTML = `$${base_total.toLocaleString()}`
     } else {
       total.innerHTML = ""
     }
   } else if (multi === undefined) {
-    total_d.innerHTML = base_total + + fee
+    total_d.innerHTML = (base_total + + fee).toLocaleString()
     total.innerHTML = ""   
   } else {
     base_total += + fee
-    total_d.innerHTML = (base_total * multi).toFixed(2)
+    total_d.innerHTML = (base_total * multi).toLocaleString()
     if (multi < 1) {  
-      total.innerHTML = `$${base_total}`
+      total.innerHTML = `$${base_total.toLocaleString()}`
     } else {
       total.innerHTML = ""
     }
