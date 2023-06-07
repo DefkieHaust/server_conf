@@ -59,6 +59,10 @@ def cart(resp):
         total = 0
         for item in cartitems:
             total += item.amount * item.item.product.price
+        for item in cartitems:
+            if item.item.product.large_item:
+                total += 2
+                break
         addresses = resp.user.addresses.all()
         pay_ms = PaymentMethod.objects
         ship_ms = ShipmentMethod.objects

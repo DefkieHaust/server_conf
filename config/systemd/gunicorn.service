@@ -1,0 +1,12 @@
+[Unit]
+Description=Gunicorn service
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/srv/server_conf
+ExecStart=/srv/server_conf/venv/bin/gunicorn -c /srv/server_conf/config/gunicorn/dev.py
+
+[Install]
+WantedBy=multi-user.target

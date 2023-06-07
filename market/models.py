@@ -22,6 +22,7 @@ class Product(models.Model):
     price = models.FloatField()
     image = models.ImageField(blank=True)
     listed = models.BooleanField()
+    large_item = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

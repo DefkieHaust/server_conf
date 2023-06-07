@@ -1,0 +1,17 @@
+# This service is actually a systemd target,
+# but we are using a service since targets cannot be reloaded.
+
+[Unit]
+Description=Anonymizing overlay network for TCP (multi-instance-master)
+After=network.target
+
+[Service]
+RemainAfterExit=yes
+ExecStart=/usr/bin/tor
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
