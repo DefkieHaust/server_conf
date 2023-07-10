@@ -112,6 +112,10 @@ def cart(resp):
             btc = pay_ms.get(id=1).description
         except Exception:
             btc = "BTC"
+        try:
+            usdt = pay_ms.get(name="USDT (Tron Network)").description
+        except:
+            usdt = "USDT"
         relay = {
             "cartitems": cartitems,
             "total": round(total, 2),
@@ -121,6 +125,7 @@ def cart(resp):
             "not_received": not_received,
             "banks": bank_pm,
             "btc": btc,
+            "usdt": usdt,
         }
         return render(resp, "pages/cart.html", relay)
     else:
