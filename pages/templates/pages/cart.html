@@ -27,6 +27,11 @@ Orders page
     height: 2px;
     width: 100%;
   }
+  .hr-2 {
+    background-color: #000;
+    height: 2px;
+    width: 100%;
+  }
   .acc-1 {
     background-color: #444;
     color: #fff;
@@ -216,9 +221,30 @@ Orders page
       </div>
     </div>
 
-
 <!-- Modal -->
-<div class="modal fade modal-lg" id="middleware" tabindex="-1" aria-labelledby="mModalLabel" aria-hidden="true">
+<div class="modal fade" id="middleware" tabindex="-1" aria-labelledby="mModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark" id="exampleModalLabel">Choose Payment Method</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <strong class="text-dark d-block">Bank Transfer <i>RECOMMENDED</i></strong><hr class="hr-2">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#middleware1">EasyCrypto</button><br>
+        <strong class="text-dark mt-4 d-block">Debit/Creditcard</strong><hr class="hr-2">
+        <button id="alc-pay" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#middleware2">Alchemy Pay</button><br>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel order</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 1 -->
+<div class="modal fade modal-lg" id="middleware1" tabindex="-1" aria-labelledby="mModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -362,11 +388,17 @@ Orders page
           </div>
         </div>
 
+        <div class="form-check my-4">
+          <input id="alc-check" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            Check to continue once you have completed all steps and have made the payment
+          </label>
+        </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal">Next</button>
+        <button id="alc-next" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal" disabled>Next</button>
       </div>
     </div>
   </div>
@@ -464,11 +496,7 @@ const checkout = document.getElementById("checkout")
 function setMiddleware() {
   const selectedOptionText = paymentSelect.options[paymentSelect.selectedIndex].text;
   if (selectedOptionText === "New Customers Payment Method") {
-    if (total_main > 450) {
-      checkout.setAttribute("data-bs-target", "#middleware")
-    } else {
-      checkout.setAttribute("data-bs-target", "#middleware2")
-    }
+    checkout.setAttribute("data-bs-target", "#middleware")
   } else {
     checkout.setAttribute("data-bs-target", "#cartModal")
   }
@@ -493,8 +521,17 @@ function setHeightBasedOnWidth() {
 }
 
 // Call the function on page load or whenever needed
-checkout.addEventListener("click", () => setTimeout(() => setHeightBasedOnWidth(), 500))
+document.getElementById("alc-pay").addEventListener("click", () => setTimeout(() => setHeightBasedOnWidth(), 500))
 window.addEventListener('resize', setHeightBasedOnWidth);
+
+document.getElementById("alc-check").addEventListener("click", e => {
+  const alcNext = document.getElementById("alc-next")
+  if (e.target.checked) {
+    alcNext.removeAttribute("disabled")
+  } else {
+    alcNext.setAttribute("disabled", "disabled")
+  }
+})
 
 
 </script>
